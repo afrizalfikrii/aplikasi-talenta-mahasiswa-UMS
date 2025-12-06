@@ -152,3 +152,9 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',  # Default: harus login dulu baru bisa akses API
     ),
 }
+
+# URL untuk akses gambar di browser
+MEDIA_URL = '/media/'
+
+# Folder fisik di laptop tempat gambar disimpan
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
