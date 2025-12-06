@@ -133,3 +133,22 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:5173",
 ]
 CORS_ALLOW_CREDENTIALS = True
+
+# --- KONFIGURASI TAMBAHAN ---
+
+# 1. Custom User Model
+# Kita memberitahu Django untuk tidak pakai user bawaan, tapi pakai user buatan kita di app authentication
+AUTH_USER_MODEL = 'authentication.User'
+
+# 2. CORS Config (Agar Frontend bisa akses)
+CORS_ALLOW_ALL_ORIGINS = True  # Nanti saat deploy ubah jadi False dan isi domain spesifik
+
+# 3. DRF Config (Keamanan API)
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',  # Default: harus login dulu baru bisa akses API
+    ),
+}
