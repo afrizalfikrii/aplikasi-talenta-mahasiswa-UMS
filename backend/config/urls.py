@@ -21,17 +21,13 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    # 1. Admin Panel (Bawaan)
     path('admin/', admin.site.urls),
 
-    # 2. API Talents (PENTING: Ini yang memperbaiki error kuning kamu)
     path('api/talents/', include('talents.urls')),
 
-    # 3. Authentication (Login/Register)
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
-    # 4. Dokumentasi Swagger (Deliverable No. 3)
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
 ]
 
