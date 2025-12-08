@@ -16,6 +16,9 @@ class TalentProfile(models.Model):
     github_url = models.URLField(blank=True)
     website_url = models.URLField(blank=True)
     
+    # CV File
+    cv_file = models.FileField(upload_to='cv_files/', blank=True, null=True, help_text="Upload file CV (PDF, DOC, atau DOCX)")
+    
     # Status
     is_open_to_work = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)

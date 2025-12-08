@@ -36,6 +36,7 @@ class TalentProfileSerializer(serializers.ModelSerializer):
             'id', 'user', 'username', 'email', 
             'profile_picture', 'phone_number', 'address', 'summary', 
             'linkedin_url', 'github_url', 'website_url', 
+            'cv_file',
             'is_open_to_work', 'updated_at'
             # 'skills', 'experiences', 'portfolios' # Uncomment jika ingin nested
         ]
