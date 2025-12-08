@@ -3,8 +3,8 @@
 | Metadata | Detail |
 | :--- | :--- |
 | **Penanggung Jawab** | Backend Engineer |
-| **Status** | ✅ Setup Dasar Selesai (Auth, Database, Core API) |
-| **Update Terakhir** | 7 Desember 2025 |
+| **Status** | ✅ Setup Doker |
+| **Update Terakhir** | 8 Desember 2025 |
 
 ---
 
@@ -134,3 +134,46 @@ backend/
 │   ├── urls.py          # Daftar alamat API
 └── media/               # Folder tempat gambar yang diupload user
 ```
+
+---
+## 🐳 Panduan Penggunaan Docker (Talenta UMS)
+Panduan ini mencakup cara menjalankan aplikasi dari nol (belum ada database) hingga cara mengelola migrasi sehari-hari.
+
+# Prasyarat
+- Docker Desktop (harus status Running)
+- Git Bash / Terminal VS Code
+
+## Instalasi Baru / Fresh Start
+Gunakan langkah ini jika Anda baru saja clone repository, atau baru saja mereset database (menghapus volume).
+
+# Apabila sudah pernah melakukan migrasi sebisa mungkin folder migrasi dihapus dulu
+
+Langkah 1: Persiapan Environment
+Clone repository (jika belum).
+Buat file .env di folder backend/ (bisa copy dari .env.example).
+```Bash
+cp backend/.env.example backend/.env
+(Pastikan settingan DB_HOST=db di dalam .env)
+```
+Langkah 2: Jalankan Container
+Jalankan perintah ini untuk membangun image dan menyalakan server.
+
+```Bash
+docker-compose up --build
+Tunggu hingga log berhenti bergerak dan muncul tulisan "Starting development server".
+```
+Langkah 3: Inisialisasi Database (PENTING)
+Karena database baru saja dibuat, isinya masih kosong. Buka terminal baru (biarkan terminal docker tetap jalan), lalu jalankan perintah ini urut:
+
+```Bash
+# 1. Masuk ke dalam container backend
+docker exec -it talent_backend sh
+# 2. Terapkan migrasi (Membuat tabel di DB)
+python manage.py migrate
+# 3. Buat akun Admin (Superuser)
+python manage.py createsuperuser
+# 4. Keluar dari container
+exit
+```
+Web: http://localhost:5173
+API/Admin: http://localhost:8000/admin
