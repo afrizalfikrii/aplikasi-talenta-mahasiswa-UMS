@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from django.http import FileResponse, HttpResponse
 from rest_framework import generics, permissions
 from .models import TalentProfile
 from .serializers import TalentProfileSerializer
@@ -30,3 +31,29 @@ class MyProfileView(generics.RetrieveUpdateAPIView):
         # Jika profil belum ada, otomatis dibuatkan (get_or_create)
         obj, created = TalentProfile.objects.get_or_create(user=self.request.user)
         return obj
+
+# 4. VIEW PUBLIK: Download CV PDF
+class DownloadCVView(generics.RetrieveAPIView):
+    """
+    Endpoint untuk download CV dari talent profile
+    Akses: /api/talents/<username>/download-cv/
+    """
+    queryset = TalentProfile.objects.all()
+    permission_classes = [permissions.AllowAny]
+    lookup_field = 'user__username'
+    
+    def get(self, request, *args, **kwargs):
+        profile = self.get_object()
+        
+        # Jika tidak ada file CV
+        if not profile.cv_file:
+            return HttpResponse(
+                "CV tidak tersedia", 
+                status=404
+            )
+        
+        # Ambil file CV
+        cv_file = profile.cv_file
+        response = FileResponse(cv_file.open('rb'), as_attachment=True)
+        response['Content-Disposition'] = f'attachment; filename="CV_{profile.user.username}.pdf"'
+        return response
