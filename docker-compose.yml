@@ -1,7 +1,5 @@
 services:
-  # SERVICE BACKEND
   db:
-    # SERVICE DATABASE POSTGRESQL
     image: postgres:18-alpine
     container_name: talent_db
     restart: always
@@ -13,13 +11,15 @@ services:
       - POSTGRES_PASSWORD=postgres
     ports:
       - "5432:5432"
-  # SERVICE BACKEND
+
   backend:
     build: ./backend
     container_name: talent_backend
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - ./backend:/app
+      - media_volume:/app/media
+      - static_volume:/app/static
     ports:
       - "8000:8000"
     env_file:
@@ -27,7 +27,6 @@ services:
     depends_on:
       - db
 
-  # SERVICE FRONTEND
   frontend:
     build: ./frontend
     container_name: talent_frontend
@@ -43,3 +42,5 @@ services:
 
 volumes:
   postgres_data:
+  media_volume:
+  static_volume:
