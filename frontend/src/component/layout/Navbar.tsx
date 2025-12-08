@@ -3,8 +3,8 @@ import { useState } from 'react';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const isLoggedIn = false; 
-  
+  const isLoggedIn = false;
+
   const handleLogout = () => {
     console.log('Logout');
   };
@@ -13,36 +13,40 @@ export default function Navbar() {
     <nav className="bg-white shadow-md sticky top-0 z-50 rounded-lg" >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-            {/* logo desktop */}
+          {/* logo desktop */}
           <Link to="/" className="hidden md:flex items-center space-x-3">
-            <img src="/logo-desktop.svg" alt="Talenta UMS" className="h-10 w-auto"/>
+            <img src="/logo-desktop.svg" alt="Talenta UMS" className="h-10 w-auto" />
           </Link>
 
-            {/* logo mobile */}
+          {/* logo mobile */}
+
           <Link to="/" className="flex md:hidden items-center">
-            <img src="/logo-mobile.svg" alt="Talenta UMS" className="h-8 w-auto"/>
+            <img
+              src={isMenuOpen ? "/logo-desktop.svg" : "/logo-mobile.svg"}
+              className="h-8 w-auto transition-all duration-300"
+            />
           </Link>
 
 
           {/* menu dekstop */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link 
-              to="/" 
+            <Link
+              to="/"
               className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
             >
               Home
             </Link>
-            <Link 
-              to="/talenta" 
+            <Link
+              to="/talenta"
               className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
             >
               Talenta
             </Link>
-            
+
             {isLoggedIn ? (
               <>
-                <Link 
-                  to="/dashboard" 
+                <Link
+                  to="/dashboard"
                   className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
                 >
                   Dashboard
@@ -55,8 +59,8 @@ export default function Navbar() {
                 </button>
               </>
             ) : (
-              <Link 
-                to="/login" 
+              <Link
+                to="/auth/login"
                 className="bg-slate-600 text-white px-4 py-2 rounded-lg hover:bg-slate-700 transition-colors font-medium"
               >
                 Login
@@ -99,13 +103,13 @@ export default function Navbar() {
               Home
             </Link>
             <Link
-              to="/talents"
+              to="/talenta"
               className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
               Talenta
             </Link>
-            
+
             {isLoggedIn ? (
               <>
                 <Link
@@ -127,8 +131,8 @@ export default function Navbar() {
               </>
             ) : (
               <Link
-                to="/login"
-                className="block px-4 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors text-center"
+                to="/auth/login"
+                className="block px-4 py-2 text-white bg-slate-600 hover:bg-slate-700 rounded-lg transition-colors text-center"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Login

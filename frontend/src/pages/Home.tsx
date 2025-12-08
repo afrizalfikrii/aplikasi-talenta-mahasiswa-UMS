@@ -27,7 +27,7 @@ export default function Home() {
 
             {/* daftar */}
             <Link
-              to="/register"
+              to="/auth/register"
               className="inline-flex items-center justify-center bg-slate-600 text-white px-6 py-3 rounded-lg hover:bg-slate-700 transition-colors font-bold"
             >
               Daftar Sebagai Talenta
