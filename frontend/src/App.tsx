@@ -3,21 +3,33 @@ import './App.css';
 import Navbar from './component/layout/Navbar';
 import Footer from './component/layout/Footer';
 import Home from './pages/Home';
-import TalentaPage from './pages/TalentaPage';
+import Login from './pages/auth/Login';
+import Register from './pages/auth/Register';
 
 function App() {
   return (
- <Router>
-      <div className="min-h-screen flex flex-col">
-        <Navbar />
-        <main className="flex-grow">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/talenta" element={<TalentaPage />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
+    <Router>
+      <Routes>
+        {/* login dan regis */}
+        <Route path="/auth/login" element={<Login />} />
+        <Route path="/auth/register" element={<Register />} />
+
+        {/* main */}
+        <Route
+          path="/*"
+          element={
+            <div className="min-h-screen flex flex-col">
+              <Navbar />
+              <main className="flex-grow">
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                </Routes>
+              </main>
+              <Footer />
+            </div>
+          }
+        />
+      </Routes>
     </Router>
   );
 }
