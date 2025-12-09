@@ -24,7 +24,7 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="/talents" className="text-gray-400 hover:text-white transition-colors">
+                <a href="/talenta" className="text-gray-400 hover:text-white transition-colors">
                   Browse Talenta
                 </a>
               </li>

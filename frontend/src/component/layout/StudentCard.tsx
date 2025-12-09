@@ -24,7 +24,7 @@ const StudentCard: React.FC<StudentCardProps> = ({
           {name.charAt(0)}
         </div>
 
-        <div>
+        <div className="text-left">
           <h2 className="text-xl font-semibold text-gray-900">{name}</h2>
           <p className="text-gray-600 text-sm">{major}</p>
           <p className="text-gray-500 text-sm">NIM: {nim}</p>
@@ -32,7 +32,7 @@ const StudentCard: React.FC<StudentCardProps> = ({
       </div>
 
       {/* Bio */}
-      <p className="mt-4 text-gray-700 text-sm leading-relaxed">
+      <p className="mt-4 text-gray-700 text-left text-sm leading-relaxed">
         {bio}
       </p>
 
