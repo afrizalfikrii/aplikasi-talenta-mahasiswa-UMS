@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import CardHome from '../component/layout/CardHome';
 
 export default function Home() {
   return (
@@ -92,26 +93,10 @@ export default function Home() {
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Talenta Terbaru</h2>
             <p className="text-gray-600">Kenali mahasiswa berbakat yang baru bergabung</p>
           </div>
-          {/* grid */}
+
           <div className="flex justify-center">
-
-            {/* dummy card */}
-            <div className="bg-white rounded-lg p-4 hover:shadow-md transition-shadow duration-300 text-center border-shadow border border-slate-200">
-              <div className="w-20 h-20 mx-auto mb-3 bg-slate-100 rounded-full flex items-center justify-center">
-                <span className="text-2xl font-bold text-slate-600">A</span>
-              </div>
-              <h3 className="text-sm font-bold text-gray-900 mb-1">Ahmad Fauzi</h3>
-              <p className="text-xs text-gray-500 mb-3">Teknik Informatika</p>
-              <div className="flex flex-wrap justify-center gap-1 mb-3">
-                <span className="px-2 py-0.5 bg-white border border-slate-200 text-slate-600 text-xs font-medium rounded">
-                  React
-                </span>
-                <span className="px-2 py-0.5 bg-white border border-slate-200 text-slate-600 text-xs font-medium rounded">
-                  Node.js
-                </span>
-              </div>
-            </div>
-
+            {/* panggil layout card */}
+            <CardHome />
           </div>
 
           {/* button direct ke smua talenta */}
