@@ -93,7 +93,6 @@ export default function Home() {
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Talenta Terbaru</h2>
             <p className="text-gray-600">Kenali mahasiswa berbakat yang baru bergabung</p>
           </div>
-
           <div className="flex justify-center">
             {/* panggil layout card */}
             <CardHome />
