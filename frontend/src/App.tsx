@@ -4,7 +4,7 @@ import Navbar from './component/layout/Navbar';
 import Footer from './component/layout/Footer';
 import Home from './pages/Home';
 import TalentaPage from './pages/TalentaPage';
-// import TalentaDetailPage from "./pages/TalentaDetailPage";
+import TalentaDetailPage from "./pages/TalentaDetailPage";
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 
@@ -26,7 +26,7 @@ function App() {
                 <Routes>
                   <Route path="/" element={<Home />} />
                   <Route path="/talenta" element={<TalentaPage />} />
-                  {/* <Route path="/talenta/:nim" element={<TalentaDetailPage />} /> */}
+                  <Route path="/talenta/:nim" element={<TalentaDetailPage />} />
                 </Routes>
               </main>
               <Footer />

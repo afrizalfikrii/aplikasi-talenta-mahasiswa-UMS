@@ -3,6 +3,12 @@ import { Link } from "react-router-dom";
 import StudentCard from "../component/layout/StudentCard";
 import studentsData from "../datasample/student.json";
 
+const truncateBio = (text: string, maxWords: number = 15) => {
+  const words = text.trim().split(/\s+/);
+  if (words.length <= maxWords) return text;
+  return words.slice(0, maxWords).join(" ") + "...";
+};
+
 const TalentaPage: React.FC = () => {
   const [search, setSearch] = useState("");
 
@@ -71,7 +77,7 @@ const TalentaPage: React.FC = () => {
                 name={student.name}
                 major={student.major}
                 nim={student.nim}
-                bio={student.bio}
+                bio={truncateBio(student.bio)}
                 skills={student.skills}
               />
             </Link>
