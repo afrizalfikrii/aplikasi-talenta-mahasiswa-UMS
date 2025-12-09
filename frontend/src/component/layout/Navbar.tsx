@@ -10,8 +10,8 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-white shadow-md sticky top-0 z-50 rounded-lg" >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav className="sticky top-4 z-50 mx-4 md:mx-8">
+      <div className="bg-white shadow-lg rounded-2xl max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* logo desktop */}
           <Link to="/" className="hidden md:flex items-center space-x-3">
