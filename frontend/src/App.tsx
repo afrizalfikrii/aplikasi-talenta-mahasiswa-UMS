@@ -1,12 +1,12 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-// import './App.css';
-import Navbar from './component/layout/Navbar';
-import Footer from './component/layout/Footer';
-import Home from './pages/Home';
-import TalentaPage from './pages/TalentaPage';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import "./App.css";
+import Navbar from "./component/layout/Navbar";
+import Footer from "./component/layout/Footer";
+import Home from "./pages/Home";
+import TalentaPage from "./pages/TalentaPage";
 import TalentaDetailPage from "./pages/TalentaDetailPage";
-import Login from './pages/auth/Login';
-import Register from './pages/auth/Register';
+import Login from "./pages/auth/Login";
+import Register from "./pages/auth/Register";
 
 function App() {
   return (

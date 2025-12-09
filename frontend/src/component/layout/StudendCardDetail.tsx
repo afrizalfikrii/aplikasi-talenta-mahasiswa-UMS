@@ -23,7 +23,7 @@ const StudentCardDetail: React.FC<StudentCardDetailProps> = ({ student }) => {
   return (
     <div className="
         w-full 
-        max-w-xl sm:max-w-2xl md:max-w-3xl lg:max-w-5xl xl:max-w-6xl 
+        max-w-xl sm:max-w-2xl md:max-w-3xl lg:max-w-5xl xl:w-[95%] 
         p-5 sm:p-6 
         bg-white shadow-md rounded-2xl 
         flex flex-col sm:flex-row 
