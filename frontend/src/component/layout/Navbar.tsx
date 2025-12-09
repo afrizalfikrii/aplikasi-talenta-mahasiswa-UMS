@@ -32,13 +32,13 @@ export default function Navbar() {
           <div className="hidden md:flex items-center space-x-8">
             <Link
               to="/"
-              className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
+              className="text-gray-700 hover:text-slate-700 transition-colors font-medium"
             >
               Home
             </Link>
             <Link
               to="/talenta"
-              className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
+              className="text-gray-700 hover:text-slate-700 transition-colors font-medium"
             >
               Talenta
             </Link>
