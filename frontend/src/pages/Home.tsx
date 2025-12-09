@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import CardHome from '../component/layout/CardHome';
+import { Link } from "react-router-dom";
+import CardHome from "../component/layout/CardHome";
 
 export default function Home() {
   return (
@@ -10,7 +10,8 @@ export default function Home() {
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
             {/* Temukan talenta terbaik Universitas Muhammadiyah Surakarta. <br />Jelajahi profil, skill,
             dan portofolio mahasiswa berbakat kami. */}
-            Jelajahi Profil dan Portofolio talenta Universitas Muhammadiyah Surakarta
+            Jelajahi Profil dan Portofolio talenta Universitas Muhammadiyah
+            Surakarta
           </h1>
 
           {/* button */}
@@ -18,9 +19,21 @@ export default function Home() {
             {/* jelajah */}
             <Link
               to="/talenta"
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               className="inline-flex items-center justify-center bg-emerald-100 text-emerald-900 px-6 py-3 rounded-lg hover:bg-emerald-200 transition-colors font-bold"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="mr-2"
+              >
                 <circle cx="11" cy="11" r="8"></circle>
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
               </svg>
@@ -33,7 +46,18 @@ export default function Home() {
               className="inline-flex items-center justify-center bg-slate-600 text-white px-6 py-3 rounded-lg hover:bg-slate-700 transition-colors font-bold"
             >
               Daftar Sebagai Talenta
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="ml-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="ml-2"
+              >
                 <line x1="5" y1="12" x2="19" y2="12"></line>
                 <polyline points="12 5 19 12 12 19"></polyline>
               </svg>
@@ -49,7 +73,17 @@ export default function Home() {
             {/* total talenta */}
             <div>
               <div className="inline-flex items-center justify-center w-16 h-16 bg-emerald-100 rounded-full mb-4 text-emerald-700">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                   <circle cx="9" cy="7" r="4"></circle>
                   <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
@@ -63,7 +97,17 @@ export default function Home() {
             {/* skill */}
             <div>
               <div className="inline-flex items-center justify-center w-16 h-16 bg-emerald-100 rounded-full mb-4 text-emerald-700">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
                 </svg>
               </div>
@@ -74,7 +118,17 @@ export default function Home() {
             {/* prodi */}
             <div>
               <div className="inline-flex items-center justify-center w-16 h-16 bg-emerald-100 rounded-full mb-4 text-emerald-700">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
                   <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
                 </svg>
@@ -90,8 +144,12 @@ export default function Home() {
       <div className="bg-white py-16">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Talenta Terbaru</h2>
-            <p className="text-gray-600">Kenali mahasiswa berbakat yang baru bergabung</p>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Talenta Terbaru
+            </h2>
+            <p className="text-gray-600">
+              Kenali mahasiswa berbakat yang baru bergabung
+            </p>
           </div>
 
           <div className="flex justify-center">
@@ -103,10 +161,22 @@ export default function Home() {
           <div className="text-center mt-12">
             <Link
               to="/talenta"
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               className="inline-flex items-center bg-slate-600 text-white px-8 py-3 rounded-lg hover:bg-slate-700 transition-colors font-semibold"
             >
               Lihat Semua Talenta
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ml-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="ml-2"
+              >
                 <line x1="5" y1="12" x2="19" y2="12"></line>
                 <polyline points="12 5 19 12 12 19"></polyline>
               </svg>
