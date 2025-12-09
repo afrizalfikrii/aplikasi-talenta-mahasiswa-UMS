@@ -43,15 +43,13 @@ export default function Navbar() {
           <div className="hidden md:flex items-center space-x-8">
             <Link
               to="/"
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
+              className="text-gray-700 hover:text-slate-700 transition-colors font-medium"
             >
               Home
             </Link>
             <Link
               to="/talenta"
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
+              className="text-gray-700 hover:text-slate-700 transition-colors font-medium"
             >
               Talenta
             </Link>
