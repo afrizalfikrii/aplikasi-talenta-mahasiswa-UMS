@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name": "Ahmad Fauzan",
+    "major": "Teknik Informatika",
+    "nim": "21050123",
+    "bio": "Mahasiswa aktif yang tertarik pada pengembangan aplikasi web dan mobile.",
+    "skills": ["JavaScript", "React", "Node.js", "UI/UX", "Laravel"]
+  },
+  {
+    "id": 2,
+    "name": "Siti Rahmawati",
+    "major": "Sistem Informasi",
+    "nim": "21040211",
+    "bio": "Berpengalaman dalam analisis bisnis dan pengelolaan data, serta minat di bidang data science.",
+    "skills": ["Python", "SQL", "Data Analysis", "Machine Learning"]
+  },
+  {
+    "id": 3,
+    "name": "Budi Santoso",
+    "major": "Teknik Elektro",
+    "nim": "21030155",
+    "bio": "Fokus pada pengembangan IoT dan otomasi modern.",
+    "skills": ["Arduino", "IoT", "C++", "Embedded System"]
+  },
+  {
+    "id": 4,
+    "name": "Nurul Azzahra",
+    "major": "Teknik Industri",
+    "nim": "21070244",
+    "bio": "Tertarik pada optimasi sistem, manajemen industri, dan riset operasi.",
+    "skills": ["Lean Management", "Supply Chain", "Data Visualization"]
+  },
+  {
+    "id": 5,
+    "name": "Rizky Maulana",
+    "major": "Teknik Informatika",
+    "nim": "21050178",
+    "bio": "Software engineer pemula yang menyukai backend development dan cloud computing.",
+    "skills": ["Laravel", "MySQL", "REST API", "Docker"]
+  }
+]

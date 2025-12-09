@@ -16,11 +16,11 @@ const StudentCard: React.FC<StudentCardProps> = ({
   skills,
 }) => {
   return (
-    <div className="w-full max-w-xl bg-white rounded-2xl shadow-md p-6 border border-gray-100">
+    <div className="w-full h-full max-w-xl bg-white rounded-2xl shadow-md p-6 border border-gray-100">
       {/* Avatar + Name */}
       <div className="flex items-center gap-4">
         {/* Avatar */}
-        <div className="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center text-red-600 text-3xl font-semibold">
+        <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-900 flex items-center justify-center text-3xl font-semibold">
           {name.charAt(0)}
         </div>
 
@@ -41,7 +41,7 @@ const StudentCard: React.FC<StudentCardProps> = ({
         {skills.slice(0, 4).map((skill) => (
           <span
             key={skill}
-            className="px-3 py-1 bg-red-100 text-red-600 text-sm rounded-full"
+            className="px-3 py-1 bg-emerald-100 text-emerald-900 text-sm rounded-full flex items-center justify-center"
           >
             {skill}
           </span>
