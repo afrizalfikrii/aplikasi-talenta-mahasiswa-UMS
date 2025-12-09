@@ -6,9 +6,10 @@ export default function Home() {
       {/* hero */}
       <div className="text-slate-900 py-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-3xl md:text-4xl font-bold mb-6">
-            Temukan talenta terbaik dari Universitas Muhammadiyah Surakarta. Jelajahi profil, skill,
-            dan portofolio mahasiswa berbakat kami.
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+            {/* Temukan talenta terbaik Universitas Muhammadiyah Surakarta. <br />Jelajahi profil, skill,
+            dan portofolio mahasiswa berbakat kami. */}
+            Jelajahi Profil dan Portofolio talenta Universitas Muhammadiyah Surakarta
           </h1>
 
           {/* button */}
@@ -87,10 +88,44 @@ export default function Home() {
       {/* data talenta terbaru */}
       <div className="bg-white py-16">
         <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">Talenta Terbaru</h2>
-          <p className="text-gray-600 mb-8">Kenali mahasiswa berbakat yang baru bergabung</p>
-          <div className="text-center text-gray-500 py-12">
-            <p>Coming soon - bentuknya card</p>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Talenta Terbaru</h2>
+            <p className="text-gray-600">Kenali mahasiswa berbakat yang baru bergabung</p>
+          </div>
+          {/* grid */}
+          <div className="flex justify-center">
+
+            {/* dummy card */}
+            <div className="bg-white rounded-lg p-4 hover:shadow-md transition-shadow duration-300 text-center border-shadow border border-slate-200">
+              <div className="w-20 h-20 mx-auto mb-3 bg-slate-100 rounded-full flex items-center justify-center">
+                <span className="text-2xl font-bold text-slate-600">A</span>
+              </div>
+              <h3 className="text-sm font-bold text-gray-900 mb-1">Ahmad Fauzi</h3>
+              <p className="text-xs text-gray-500 mb-3">Teknik Informatika</p>
+              <div className="flex flex-wrap justify-center gap-1 mb-3">
+                <span className="px-2 py-0.5 bg-white border border-slate-200 text-slate-600 text-xs font-medium rounded">
+                  React
+                </span>
+                <span className="px-2 py-0.5 bg-white border border-slate-200 text-slate-600 text-xs font-medium rounded">
+                  Node.js
+                </span>
+              </div>
+            </div>
+
+          </div>
+
+          {/* button direct ke smua talenta */}
+          <div className="text-center mt-12">
+            <Link
+              to="/talenta"
+              className="inline-flex items-center bg-slate-600 text-white px-8 py-3 rounded-lg hover:bg-slate-700 transition-colors font-semibold"
+            >
+              Lihat Semua Talenta
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ml-2">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </Link>
           </div>
         </div>
       </div>
