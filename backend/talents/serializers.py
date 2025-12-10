@@ -26,18 +26,22 @@ class TalentProfileSerializer(serializers.ModelSerializer):
     email = serializers.CharField(source='user.email', read_only=True)
     
     # Nested Serializers (Opsional: jika ingin data skill langsung muncul di profil)
-    # skills = SkillSerializer(many=True, read_only=True)
+    skills = serializers.SerializerMethodField()
     # experiences = ExperienceSerializer(many=True, read_only=True)
     # portfolios = PortfolioSerializer(many=True, read_only=True)
 
     class Meta:
         model = TalentProfile
         fields = [
-            'id', 'user', 'username', 'email', 
+            'id', 'user', 'username', 'email', 'prodi', 
             'profile_picture', 'phone_number', 'address', 'summary', 
             'linkedin_url', 'github_url', 'website_url', 
             'cv_file',
-            'is_open_to_work', 'updated_at'
+            'is_open_to_work', 'updated_at', 'skills'
             # 'skills', 'experiences', 'portfolios' # Uncomment jika ingin nested
         ]
         read_only_fields = ['user'] # User tidak boleh diedit lewat sini
+    def get_skills(self, obj):
+        user = obj.user
+        skills = user.skills.all()
+        return SkillSerializer(skills, many=True).data
