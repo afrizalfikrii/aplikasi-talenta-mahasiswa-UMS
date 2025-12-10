@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 import os
 from pathlib import Path
+from datetime import timedelta
 from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -159,3 +160,10 @@ MEDIA_URL = '/media/'
 
 # Folder fisik di laptop tempat gambar disimpan
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),   # ✅ pendek
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),      # ✅ 1 hari
+    "ROTATE_REFRESH_TOKENS": True,
+    "BLACKLIST_AFTER_ROTATION": True,
+}
