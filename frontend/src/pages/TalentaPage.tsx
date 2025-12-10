@@ -25,11 +25,11 @@ const TalentaPage: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Title */}
-        <div className="mb-8">
-          <h1 className="text-2xl md:text-3xl font-semibold text-gray-900">
+        <div className="mb-7">
+          <h1 className="text-2xl text-left mt-5 md:text-2xl font-semibold text-gray-900">
             Daftar Talenta Mahasiswa
           </h1>
-          <p className="text-gray-600 text-base md:text-lg mt-1">
+          <p className="text-gray-600 text-left text-base md:text-lg mt-2">
             Temukan talenta terbaik sesuai kebutuhan Anda
           </p>
         </div>
@@ -50,7 +50,7 @@ const TalentaPage: React.FC = () => {
         </div>
 
         {/* Count */}
-        <p className="text-gray-600 mt-6 text-sm md:text-base">
+        <p className="text-gray-600 text-left mt-6 text-sm md:text-base">
           Menampilkan{" "}
           <span className="text-emerald-900 font-semibold">{filtered.length}</span>{" "}
           talenta
@@ -70,6 +70,7 @@ const TalentaPage: React.FC = () => {
           {filtered.map((student) => (
             <Link
               to={`/talenta/${student.nim}`}   // gunakan NIM untuk detail page
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               key={student.nim}
               className="block hover:scale-[1.02] transition-transform"
             >

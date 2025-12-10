@@ -1,7 +1,11 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
-import StudentCard, { type StudentData } from "../component/layout/StudendCardDetail";
+import StudentCard, {
+  type StudentData,
+} from "../component/layout/StudendCardDetail";
+import SkillsExperiences from "../component/layout/SkillsExperiences";
 import students from "../datasample/student.json";
+import CallToAction from "../component/layout/CallToActioan";
 
 const StudentDetailPage: React.FC = () => {
   const { nim } = useParams();
@@ -16,12 +20,12 @@ const StudentDetailPage: React.FC = () => {
   }
 
   return (
-    <div className="w-full min-h-screen bg-gray-100 py-10 flex flex-col items-center">
+    <div className="w-full min-h-screen bg-gray-50 py-7 px-8 flex flex-col items-center">
       <div
         className="
           w-full 
-          max-w-xl sm:max-w-2xl md:max-w-3xl lg:max-w-5xl xl:max-w-6xl 
-          px-4
+          bg-gray-50
+          max-w-xl sm:max-w-2xl md:max-w-3xl lg:max-w-6xl xl:max-w-6xl
         "
       >
         {/* Link Kembali Ke Daftar Talenta */}
@@ -36,8 +40,10 @@ const StudentDetailPage: React.FC = () => {
         </div>
 
         {/* Card Component */}
-        <div className="flex justify-center">
+        <div className="flex flex-col items-center gap-5">
           <StudentCard student={student} />
+          <SkillsExperiences />
+          <CallToAction />
         </div>
       </div>
     </div>

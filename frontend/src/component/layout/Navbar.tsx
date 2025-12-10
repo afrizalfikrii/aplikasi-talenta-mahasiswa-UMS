@@ -1,12 +1,12 @@
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { Link } from "react-router-dom";
+import { useState } from "react";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const isLoggedIn = false;
 
   const handleLogout = () => {
-    console.log('Logout');
+    console.log("Logout");
   };
 
   return (
@@ -14,19 +14,30 @@ export default function Navbar() {
       <div className="bg-white shadow-lg rounded-2xl max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* logo desktop */}
-          <Link to="/" className="hidden md:flex items-center space-x-3">
-            <img src="/logo-desktop.svg" alt="Talenta UMS" className="h-10 w-auto" />
+          <Link
+            to="/"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="hidden md:flex items-center space-x-3"
+          >
+            <img
+              src="/logo-desktop.svg"
+              alt="Talenta UMS"
+              className="h-10 w-auto"
+            />
           </Link>
 
           {/* logo mobile */}
 
-          <Link to="/" className="flex md:hidden items-center">
+          <Link
+            to="/"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="flex md:hidden items-center"
+          >
             <img
               src={isMenuOpen ? "/logo-desktop.svg" : "/logo-mobile.svg"}
               className="h-8 w-auto transition-all duration-300"
             />
           </Link>
-
 
           {/* menu dekstop */}
           <div className="hidden md:flex items-center space-x-8">

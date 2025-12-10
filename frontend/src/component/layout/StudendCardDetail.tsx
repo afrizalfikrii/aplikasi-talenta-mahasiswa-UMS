@@ -22,12 +22,11 @@ const StudentCardDetail: React.FC<StudentCardDetailProps> = ({ student }) => {
 
   return (
     <div className="
-        w-full 
-        max-w-xl sm:max-w-2xl md:max-w-3xl lg:max-w-5xl xl:w-[95%] 
+        w-full max-w-6xl mx-auto
         p-5 sm:p-6 
         bg-white shadow-md rounded-2xl 
         flex flex-col sm:flex-row 
-        gap-5 sm:gap-6 
+        gap-7 sm:gap-7 
         items-start
         border border-gray-200
       ">
@@ -36,9 +35,9 @@ const StudentCardDetail: React.FC<StudentCardDetailProps> = ({ student }) => {
       </div>
 
       <div className="flex flex-col gap-1 flex-1 text-justify">
-        <p className="text-lg text-gray-600" >{student.name}</p>
+        <h2 className="text-xg font-semibold text-gray-600" >{student.name}</h2>
         <p className="text-lg text-gray-600">{student.major}</p>
-        <p className="text-lg text-gray-600">Fakultas {student.faculty}</p>
+        <p className="text-mg text-gray-600">Fakultas {student.faculty}</p>
 
         <p className="text-gray-700 mt-3 mb-2 ">{student.bio}</p>
 
