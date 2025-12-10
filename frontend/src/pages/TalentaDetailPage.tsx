@@ -20,11 +20,11 @@ const StudentDetailPage: React.FC = () => {
   }
 
   return (
-    <div className="w-full min-h-screen bg-gray-50 py-7 px-8 flex flex-col items-center">
+    <div className="w-full min-h-screen bg-white py-7 px-8 flex flex-col items-center">
       <div
         className="
           w-full 
-          bg-gray-50
+          bg-white
           max-w-xl sm:max-w-2xl md:max-w-3xl lg:max-w-6xl xl:max-w-6xl
         "
       >
