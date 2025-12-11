@@ -1,34 +1,91 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import StudentCard, {
+import StudentCardDetail, {
   type StudentData,
 } from "../component/layout/StudendCardDetail";
 import SkillsExperiences from "../component/layout/SkillsExperiences";
-import students from "../datasample/student.json";
 import CallToAction from "../component/layout/CallToActioan";
+import { getTalentDetail } from "../services/detailtalent.service";
+import type { DetailTalent } from "../types/detailTalent";
 
 const StudentDetailPage: React.FC = () => {
-  const { nim } = useParams();
-  const student: StudentData | undefined = students.find((s) => s.nim === nim);
+  const { username } = useParams<{ username: string }>();
+  const [student, setStudent] = useState<StudentData | null>(null);
+  const [skills, setSkills] = useState<DetailTalent["skills"]>([]);
+  const [experiences, setExperiences] = useState<DetailTalent["experiences"]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  if (!student) {
+  useEffect(() => {
+    let ignore = false;
+
+    const fetchDetail = async () => {
+      if (!username) {
+        setError("Talenta tidak ditemukan.");
+        setLoading(false);
+        return;
+      }
+
+      try {
+        setLoading(true);
+        const detail = await getTalentDetail(username);
+        if (ignore) return;
+
+        setStudent({
+          id: detail.id,
+          name: detail.username,
+          major: detail.prodi,
+          nim: detail.user?.nim ?? "-",
+          bio: detail.summary || "Belum ada deskripsi singkat.",
+          email: detail.email || undefined,
+          telepon: detail.phone_number || undefined,
+          linkedinUrl: detail.linkedin_url || undefined,
+          githubUrl: detail.github_url || undefined,
+          websiteUrl: detail.website_url || undefined,
+          profilePicture: detail.profile_picture,
+        });
+        setSkills(detail.skills ?? []);
+        setExperiences(detail.experiences ?? []);
+        setError(null);
+      } catch (fetchError) {
+        console.error("Gagal mengambil detail talenta:", fetchError);
+        if (!ignore) {
+          setError("Gagal mengambil data talenta.");
+          setStudent(null);
+        }
+      } finally {
+        if (!ignore) {
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchDetail();
+
+    return () => {
+      ignore = true;
+    };
+  }, [username]);
+
+  if (loading) {
     return (
       <div className="w-full min-h-screen flex items-center justify-center text-xl text-gray-600">
-        Data mahasiswa tidak ditemukan.
+        Memuat data talenta...
+      </div>
+    );
+  }
+
+  if (error || !student) {
+    return (
+      <div className="w-full min-h-screen flex items-center justify-center text-xl text-gray-600">
+        {error ?? "Data talenta tidak ditemukan."}
       </div>
     );
   }
 
   return (
     <div className="w-full min-h-screen bg-gray-50 py-7 px-8 flex flex-col items-center">
-      <div
-        className="
-          w-full 
-          bg-gray-50
-          max-w-xl sm:max-w-2xl md:max-w-3xl lg:max-w-6xl xl:max-w-6xl
-        "
-      >
-        {/* Link Kembali Ke Daftar Talenta */}
+      <div className="w-full bg-gray-50 max-w-xl sm:max-w-2xl md:max-w-3xl lg:max-w-6xl xl:max-w-6xl">
         <div className="flex justify-start mb-6">
           <Link
             to="/talenta"
@@ -39,10 +96,9 @@ const StudentDetailPage: React.FC = () => {
           </Link>
         </div>
 
-        {/* Card Component */}
         <div className="flex flex-col items-center gap-5">
-          <StudentCard student={student} />
-          <SkillsExperiences />
+          <StudentCardDetail student={student} />
+          <SkillsExperiences skills={skills} experiences={experiences} />
           <CallToAction />
         </div>
       </div>

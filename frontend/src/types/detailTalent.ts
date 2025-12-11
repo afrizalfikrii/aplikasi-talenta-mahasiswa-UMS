@@ -1,4 +1,4 @@
-export interface Talent {
+export interface DetailTalent {
   id: number;
   user: {
     id: number;
@@ -22,4 +22,12 @@ export interface Talent {
     skill_name: string; 
     proficiency_level: string 
 }[];
+  experiences: {
+    id: number;
+    title: string;
+    company: string;
+    start_date: string;
+    end_date: string | null;
+    description: string;
+  }[];
 }

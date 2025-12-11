@@ -26,7 +26,7 @@ function App() {
                 <Routes>
                   <Route path="/" element={<Home />} />
                   <Route path="/talenta" element={<TalentaPage />} />
-                  <Route path="/talenta/:nim" element={<TalentaDetailPage />} />
+                  <Route path="/talenta/:username" element={<TalentaDetailPage />} />
                 </Routes>
               </main>
               <Footer />
