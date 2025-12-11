@@ -12,7 +12,7 @@ class CustomUserAdmin(UserAdmin):
     )
 
     add_fieldsets = UserAdmin.add_fieldsets + (
-        ('Extra Fields', {'fields': ('role', 'nim')}),
+        ('Extra Fields', {'fields': ('email', 'role', 'nim')}),
     )
     
 admin.site.register(User, CustomUserAdmin)

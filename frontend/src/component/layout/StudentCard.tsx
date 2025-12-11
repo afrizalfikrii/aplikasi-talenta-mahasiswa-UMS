@@ -1,27 +1,29 @@
-import React from "react";
-
-interface StudentCardProps {
+export type StudentData = {
   name: string;
   major: string;
   nim: string;
   bio: string;
   skills: string[];
-}
+  profilePicture?: string | null;
+};
 
-const StudentCard: React.FC<StudentCardProps> = ({
-  name,
-  major,
-  nim,
-  bio,
-  skills,
-}) => {
+const StudentCard: React.FC<{ student: StudentData }> = ({ student }) => {
+  const { name, major, nim, bio, skills, profilePicture } = student;
   return (
     <div className="w-full h-full max-w-xl bg-white rounded-2xl shadow-md p-6 border border-gray-100">
       {/* Avatar + Name */}
       <div className="flex items-center gap-4">
         {/* Avatar */}
         <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-900 flex items-center justify-center text-3xl font-semibold">
-          {name.charAt(0)}
+          {profilePicture ? (
+            <img
+              src={profilePicture}
+              alt={`${name} profile`}
+              className="w-full h-full object-cover rounded-full"
+            />
+          ) : (
+            name.charAt(0)
+          )}
         </div>
 
         <div className="text-left">
