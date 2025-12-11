@@ -20,7 +20,7 @@ export default function Login() {
                 type="email"
                 id="email"
                 name="email"
-                placeholder="nama@email.com"
+                placeholder="l200230000@student.ums.ac.id"
                 required
                 className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all"
               />
