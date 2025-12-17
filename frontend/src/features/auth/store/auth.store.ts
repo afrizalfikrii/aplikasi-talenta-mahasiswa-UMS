@@ -1,34 +1,26 @@
 import { create } from "zustand"
 
 interface AuthState {
-  accessToken: string | null
-  role: string | null
+  access: string | null
+  refresh: string | null
   isAuthenticated: boolean
-  login: (token: string, role: string) => void
+  login: (access: string, refresh: string) => void
   logout: () => void
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
-  accessToken: localStorage.getItem("access"),
-  role: localStorage.getItem("role"),
+  access: localStorage.getItem("access"),
+  refresh: localStorage.getItem("refresh"),
   isAuthenticated: !!localStorage.getItem("access"),
 
-  login: (token, role) => {
-    localStorage.setItem("access", token)
-    localStorage.setItem("role", role)
-    set({
-      accessToken: token,
-      role,
-      isAuthenticated: true,
-    })
+  login: (access, refresh) => {
+    localStorage.setItem("access", access)
+    localStorage.setItem("refresh", refresh)
+    set({ access, refresh, isAuthenticated: true })
   },
 
   logout: () => {
     localStorage.clear()
-    set({
-      accessToken: null,
-      role: null,
-      isAuthenticated: false,
-    })
+    set({ access: null, refresh: null, isAuthenticated: false })
   },
 }))

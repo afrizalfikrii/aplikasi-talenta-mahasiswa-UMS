@@ -6,11 +6,11 @@ const ProtectedRoute = () => {
     (state) => state.isAuthenticated
   )
 
-  if (!isAuthenticated) {
-    return <Navigate to="/auth/login" replace />
-  }
-
-  return <Outlet />
+  return isAuthenticated ? (
+    <Outlet />
+  ) : (
+    <Navigate to="/auth/login" replace />
+  )
 }
 
 export default ProtectedRoute
