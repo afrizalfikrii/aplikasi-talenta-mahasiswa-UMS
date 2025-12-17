@@ -1,11 +1,31 @@
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useAuthStore } from "@/features/auth/store/auth.store";
+import { getMeApi } from "@/features/auth/api/auth.api";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const isLoggedIn = false;
+  const navigate = useNavigate();
+  
+  const { isAuthenticated, user, logout, setUser } = useAuthStore();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (isAuthenticated && !user) {
+        try {
+          const userData = await getMeApi();
+          setUser(userData);
+        } catch (err) {
+          console.error("Failed to fetch user data", err);
+        }
+      }
+    };
+    fetchUser();
+  }, [isAuthenticated, user, setUser]);
 
   const handleLogout = () => {
+    logout();
+    navigate("/");
     console.log("Logout");
   };
 
@@ -54,21 +74,29 @@ export default function Navbar() {
               Talenta
             </Link>
 
-            {isLoggedIn ? (
-              <>
+            {isAuthenticated ? (
+              <div className="flex items-center space-x-4">
                 <Link
                   to="/dashboard"
                   className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
                 >
                   Dashboard
                 </Link>
+                <div className="flex items-center space-x-3 px-4 py-2 bg-gray-50 rounded-lg">
+                  <div className="w-8 h-8 bg-slate-600 rounded-full flex items-center justify-center text-white font-semibold">
+                    {user?.username.charAt(0).toUpperCase() || "U"}
+                  </div>
+                  <span className="text-gray-700 font-medium">
+                    {user?.username || "User"}
+                  </span>
+                </div>
                 <button
                   onClick={handleLogout}
                   className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors font-medium"
                 >
                   Logout
                 </button>
-              </>
+              </div>
             ) : (
               <Link
                 to="/auth/login"
@@ -121,8 +149,16 @@ export default function Navbar() {
               Talenta
             </Link>
 
-            {isLoggedIn ? (
+            {isAuthenticated ? (
               <>
+                <div className="flex items-center space-x-3 px-4 py-2 bg-gray-50 rounded-lg mx-2">
+                  <div className="w-8 h-8 bg-slate-600 rounded-full flex items-center justify-center text-white font-semibold">
+                    {user?.username.charAt(0).toUpperCase() || "U"}
+                  </div>
+                  <span className="text-gray-700 font-medium">
+                    {user?.username || "User"}
+                  </span>
+                </div>
                 <Link
                   to="/dashboard"
                   className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors"
