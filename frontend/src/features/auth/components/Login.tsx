@@ -1,13 +1,14 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { loginApi } from '../api/auth.api';
+import { loginApi, getMeApi } from '../api/auth.api';
 import { useAuthStore } from '../store/auth.store';
 
 export default function Login() {
   const navigate = useNavigate()
   const login = useAuthStore((state) => state.login)
+  const setUser = useAuthStore((state) => state.setUser)
 
-  const [email, setEmail] = useState("")
+  const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [loading, setLoading] = useState(false)
 
@@ -15,8 +16,14 @@ export default function Login() {
     e.preventDefault()
     try {
       setLoading(true)
-      const res = await loginApi({ email, password })
+      const res = await loginApi({ username, password })
       login(res.access, res.refresh)
+      
+      // Fetch user data setelah login
+      const userData = await getMeApi()
+      setUser(userData)
+      
+      console.log("Login berhasil")
       navigate("/") // redirect setelah login
     } catch (err) {
       alert("Login gagal")
@@ -42,10 +49,10 @@ export default function Login() {
               <input
                 type="text"
                 id="username"
-                name="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="nama@email.com"
+                name="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="username"
                 required
                 className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all"
               />
