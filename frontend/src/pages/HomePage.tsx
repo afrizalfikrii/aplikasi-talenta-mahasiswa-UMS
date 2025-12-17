@@ -151,7 +151,7 @@ export default function Home() {
               Kenali mahasiswa berbakat yang baru bergabung
             </p>
           </div>
-          <div className="flex justify-center">
+          <div className="flex justify-center gap-6">
             {/* panggil layout card */}
             <CardHome />
           </div>

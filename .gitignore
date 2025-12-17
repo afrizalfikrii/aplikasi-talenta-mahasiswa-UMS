@@ -33,6 +33,12 @@ frontend/dist
 frontend/dist-ssr
 frontend/*.local
 frontend/.env
+
+# Ignore node_modules di semua folder
+**/node_modules/
+node_modules/
+package-lock.json
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
