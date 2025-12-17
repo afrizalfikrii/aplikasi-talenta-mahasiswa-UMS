@@ -1,41 +1,17 @@
-import React, { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
-import StudentCard from "../component/layout/StudentCard";
-import { getPublicTalents } from "../services/talent.service";
-import type { Talent } from "../types/talent";
+import StudentCard from "../components/StudentCard";
+import { useTalents } from "../hooks/useTalents";
 
-const truncateBio = (text: string, maxWords: number = 15) => {
-  const words = text.trim().split(/\s+/);
-  if (words.length <= maxWords) return text;
-  return `${words.slice(0, maxWords).join(" ")}...`;
-};
-
-const TalentaPage: React.FC = () => {
+const TalentaPage = () => {
   const [search, setSearch] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
-  const [studentsData, setStudentsData] = useState<Talent[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { data, loading } = useTalents();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await getPublicTalents();
-        setStudentsData(data);
-      } catch (error) {
-        console.error("Gagal mengambil data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  // Debounce effect
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedSearch(search);
-    }, 500); // 500ms delay
+    }, 500);
 
     return () => {
       clearTimeout(timer);
@@ -44,9 +20,9 @@ const TalentaPage: React.FC = () => {
 
   const filtered = useMemo(() => {
     const keyword = debouncedSearch.trim().toLowerCase();
-    if (!keyword) return studentsData;
+    if (!keyword) return data ?? [];
 
-    return studentsData.filter((item) => {
+    return data?.filter((item) => {
       const skillNames = item.skills?.map((skill) => skill.skill_name) ?? [];
       return [
         item.username,
@@ -60,7 +36,7 @@ const TalentaPage: React.FC = () => {
         .toLowerCase()
         .includes(keyword);
     });
-  }, [studentsData, debouncedSearch]);
+  }, [data, debouncedSearch]);
 
   if (loading) return <div>Loading...</div>;
 
@@ -110,17 +86,7 @@ const TalentaPage: React.FC = () => {
               key={student.id}
               className="block hover:scale-[1.02] transition-transform"
             >
-              <StudentCard
-                student={{
-                  name: student.username,
-                  major: student.prodi,
-                  nim: student.user?.nim ?? "-",
-                  bio: truncateBio(student.summary ?? ""),
-                  skills:
-                    student.skills?.map((skill) => skill.skill_name) ?? [],
-                  profilePicture: student.profile_picture,
-                }}
-              />
+              <StudentCard student={student} />
             </Link>
           ))}
         </div>
