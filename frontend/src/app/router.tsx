@@ -7,6 +7,7 @@ import ProtectedRoute from "@/features/auth/routes/ProtectedRoute"
 import HomePage from "@/pages/HomePage"
 import LoginPage from "@/pages/LoginPage"
 import NotFoundPage from "@/pages/NotFoundPage"
+import RegisterPage from "@/pages/auth/Register"
 
 // Talent
 import TalentaPage from "@/features/talents/pages/TalentaPage"
@@ -43,6 +44,10 @@ export const router = createBrowserRouter([
   {
     path: "/auth/login",
     element: <LoginPage />,
+  },
+  {
+    path: "/auth/register",
+    element: <RegisterPage />,
   },
 
   // FALLBACK
