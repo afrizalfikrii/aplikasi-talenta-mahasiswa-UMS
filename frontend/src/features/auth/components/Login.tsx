@@ -18,11 +18,11 @@ export default function Login() {
       setLoading(true)
       const res = await loginApi({ username, password })
       login(res.access, res.refresh)
-      
+
       // Fetch user data setelah login
       const userData = await getMeApi()
       setUser(userData)
-      
+
       console.log("Login berhasil")
       navigate("/") // redirect setelah login
     } catch (err) {
@@ -37,9 +37,9 @@ export default function Login() {
       <div className="w-full max-w-md">
 
         {/* card login */}
-        <div className="bg-white rounded-lg shadow-lg p-8">  
+        <div className="bg-white rounded-lg shadow-lg p-8">
           <div className='justify-center mb-6 flex'>
-            <img src="/logo-desktop.svg" alt="logo-talenta" className="h-10 w-auto"/>
+            <img src="/logo-desktop.svg" alt="logo-talenta" className="h-10 w-auto" />
           </div>
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
@@ -54,7 +54,7 @@ export default function Login() {
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="username"
                 required
-                className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all"
+                className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all text-black"
               />
             </div>
             <div>
@@ -69,7 +69,7 @@ export default function Login() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
                 required
-                className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all"
+                className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all text-black"
               />
             </div>
             {/* button remember */}
