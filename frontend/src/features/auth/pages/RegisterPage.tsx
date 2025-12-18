@@ -1,5 +1,7 @@
 import Register from '@/features/auth/components/Register';
 
-export default function RegisterPage() {
+export const RegisterPage = () => {
   return <Register />;
 }
+
+export default RegisterPage;

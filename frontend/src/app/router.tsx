@@ -5,9 +5,9 @@ import ProtectedRoute from "@/features/auth/routes/ProtectedRoute"
 
 // Pages
 import HomePage from "@/pages/HomePage"
-import LoginPage from "@/pages/LoginPage"
+import LoginPage from "@/features/auth/pages/LoginPage"
+import RegisterPage from "@/features/auth/pages/RegisterPage"
 import NotFoundPage from "@/pages/NotFoundPage"
-import RegisterPage from "@/pages/auth/Register"
 
 // Talent
 import TalentaPage from "@/features/talents/pages/TalentaPage"
