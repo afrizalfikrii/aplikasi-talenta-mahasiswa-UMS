@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <>
       {/* hero */}
-      <div className="text-slate-900 py-20 px-4">
+      <div className="text-slate-900 dark:text-slate-100 py-20 px-4 transition-colors duration-300">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
             {/* Temukan talenta terbaik Universitas Muhammadiyah Surakarta. <br />Jelajahi profil, skill,
@@ -43,7 +43,7 @@ export default function Home() {
             {/* daftar */}
             <Link
               to="/auth/register"
-              className="inline-flex items-center justify-center bg-slate-600 text-white px-6 py-3 rounded-lg hover:bg-slate-700 transition-colors font-bold"
+              className="inline-flex items-center justify-center bg-slate-600 text-white px-6 py-3 rounded-lg hover:bg-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 transition-colors font-bold"
             >
               Daftar Sebagai Talenta
               <svg
@@ -67,7 +67,7 @@ export default function Home() {
       </div>
 
       {/* mini stats */}
-      <div className="bg-slate-100 py-16 rounded-xl">
+      <div className="bg-slate-100 dark:bg-slate-800 py-16 rounded-xl transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             {/* total talenta */}
@@ -90,8 +90,8 @@ export default function Home() {
                   <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                 </svg>
               </div>
-              <h3 className="text-4xl font-bold text-slate-800 mb-2">8+</h3>
-              <p className="text-slate-600">Talenta Terdaftar</p>
+              <h3 className="text-4xl font-bold text-slate-800 dark:text-slate-100 mb-2">8+</h3>
+              <p className="text-slate-600 dark:text-slate-400">Talenta Terdaftar</p>
             </div>
 
             {/* skill */}
@@ -111,8 +111,8 @@ export default function Home() {
                   <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
                 </svg>
               </div>
-              <h3 className="text-4xl font-bold text-slate-800 mb-2">50+</h3>
-              <p className="text-slate-600">Skill Tersedia</p>
+              <h3 className="text-4xl font-bold text-slate-800 dark:text-slate-100 mb-2">50+</h3>
+              <p className="text-slate-600 dark:text-slate-400">Skill Tersedia</p>
             </div>
 
             {/* prodi */}
@@ -133,21 +133,21 @@ export default function Home() {
                   <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
                 </svg>
               </div>
-              <h3 className="text-4xl font-bold text-slate-800 mb-2">15+</h3>
-              <p className="text-slate-600">Program Studi</p>
+              <h3 className="text-4xl font-bold text-slate-800 dark:text-slate-100 mb-2">15+</h3>
+              <p className="text-slate-600 dark:text-slate-400">Program Studi</p>
             </div>
           </div>
         </div>
       </div>
 
       {/* data talenta terbaru */}
-      <div className="bg-white py-16">
+      <div className="bg-white dark:bg-slate-900 py-16 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
               Talenta Terbaru
             </h2>
-            <p className="text-gray-600">
+            <p className="text-gray-600 dark:text-gray-400">
               Kenali mahasiswa berbakat yang baru bergabung
             </p>
           </div>
@@ -161,7 +161,7 @@ export default function Home() {
             <Link
               to="/talenta"
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="inline-flex items-center bg-slate-600 text-white px-8 py-3 rounded-lg hover:bg-slate-700 transition-colors font-semibold"
+              className="inline-flex items-center bg-slate-600 text-white px-8 py-3 rounded-lg hover:bg-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 transition-colors font-semibold"
             >
               Lihat Semua Talenta
               <svg

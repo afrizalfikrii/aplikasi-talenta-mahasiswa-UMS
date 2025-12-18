@@ -41,14 +41,14 @@ const TalentaPage = () => {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <div className="w-full min-h-screen py-10">
+    <div className="w-full min-h-screen py-10 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Title */}
         <div className="mb-7">
-          <h1 className="text-2xl text-left mt-5 md:text-2xl font-semibold text-gray-900">
+          <h1 className="text-2xl text-left mt-5 md:text-2xl font-semibold text-gray-900 dark:text-white">
             Daftar Talenta Mahasiswa
           </h1>
-          <p className="text-gray-600 text-left text-base md:text-lg mt-2">
+          <p className="text-gray-600 dark:text-gray-400 text-left text-base md:text-lg mt-2">
             Temukan talenta terbaik sesuai kebutuhan Anda
           </p>
         </div>
@@ -60,18 +60,19 @@ const TalentaPage = () => {
             placeholder="Cari berdasarkan nama, program studi, atau skill..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="flex-1 px-4 py-3 border rounded-xl shadow-sm focus:ring-2 focus:ring-blue-300 outline-none"
+            className="flex-1 px-4 py-3 border rounded-xl shadow-sm focus:ring-2 focus:ring-blue-300 outline-none
+                     bg-white dark:bg-slate-800 dark:text-white dark:border-slate-700 placeholder-gray-400 dark:placeholder-gray-500"
           />
 
-          <button className="px-5 py-3 border rounded-xl shadow-sm flex items-center gap-2 hover:bg-gray-100 transition w-full sm:w-auto justify-center">
+          <button className="px-5 py-3 border rounded-xl shadow-sm flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-slate-700 transition w-full sm:w-auto justify-center bg-white dark:bg-slate-800 dark:text-white dark:border-slate-700">
             <span>🔍</span> Filter
           </button>
         </div>
 
         {/* Count */}
-        <p className="text-gray-600 text-left mt-6 text-sm md:text-base">
+        <p className="text-gray-600 dark:text-gray-400 text-left mt-6 text-sm md:text-base">
           Menampilkan{" "}
-          <span className="text-emerald-900 font-semibold">
+          <span className="text-emerald-900 dark:text-emerald-400 font-semibold">
             {filtered.length}
           </span>{" "}
           talenta
