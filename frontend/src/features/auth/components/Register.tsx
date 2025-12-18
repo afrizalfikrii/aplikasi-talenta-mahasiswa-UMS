@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { registerApi } from '../api/auth.api';
+import { registerApi, loginApi, getMeApi } from '../api/auth.api';
+import { useAuthStore } from '../store/auth.store';
 import type { RegisterPayload } from '../types/auth.types';
 
 export default function Register() {
   const navigate = useNavigate();
+  const doLogin = useAuthStore((s) => s.login);
+  const setUser = useAuthStore((s) => s.setUser);
   const [formData, setFormData] = useState<RegisterPayload>({
     username: '',
     email: '',
@@ -35,13 +38,21 @@ export default function Register() {
     setIsLoading(true);
 
     try {
-      const response = await registerApi(formData);
-      setSuccessMessage(response.message);
-      
-      // Redirect to login page after 2 seconds
-      setTimeout(() => {
-        navigate('/auth/login');
-      }, 2000);
+      await registerApi(formData);
+
+      // Auto-login with registered credentials
+      const loginRes = await loginApi({
+        username: formData.username,
+        password: formData.password,
+      });
+      doLogin(loginRes.access, loginRes.refresh);
+
+      // Fetch user profile and store it
+      const me = await getMeApi();
+      setUser(me);
+
+      // Go to home (or dashboard if needed)
+      navigate('/');
     } catch (error: any) {
       if (error.response?.data) {
         // Backend validation errors
