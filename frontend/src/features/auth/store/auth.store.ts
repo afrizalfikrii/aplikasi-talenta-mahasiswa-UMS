@@ -9,6 +9,7 @@ interface AuthState {
   login: (access: string, refresh: string) => void
   logout: () => void
   setUser: (user: User) => void
+  setAccess: (access: string) => void
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
@@ -30,5 +31,10 @@ export const useAuthStore = create<AuthState>((set) => ({
 
   setUser: (user) => {
     set({ user })
+  },
+
+  setAccess: (access) => {
+    localStorage.setItem("access", access)
+    set({ access, isAuthenticated: true })
   },
 }))

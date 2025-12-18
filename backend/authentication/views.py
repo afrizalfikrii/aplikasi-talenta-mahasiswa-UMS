@@ -40,4 +40,5 @@ class MeView(APIView):
             "id": user.id,
             "username": user.username,
             "email": user.email,
+            "role": getattr(user, "role", None),
         })
