@@ -14,6 +14,16 @@ class PublicTalentListView(generics.ListAPIView):
     # Fitur Search (Bonus)
     # Nanti bisa ditambah filter/search backend di sini
 
+# 1.5. VIEW PUBLIK: Melihat 5 Talent Terbaru untuk Homepage
+class LatestTalentListView(generics.ListAPIView):
+    """
+    Endpoint untuk menampilkan 5 talent terbaru di homepage
+    Akses: /api/talents/latest/
+    """
+    queryset = TalentProfile.objects.all().order_by('-created_at')[:5]
+    serializer_class = TalentProfileSerializer
+    permission_classes = [permissions.AllowAny]
+
 # 2. VIEW PUBLIK: Melihat Detail Satu Talent berdasarkan Username
 class PublicTalentDetailView(generics.RetrieveAPIView):
     queryset = TalentProfile.objects.all()
