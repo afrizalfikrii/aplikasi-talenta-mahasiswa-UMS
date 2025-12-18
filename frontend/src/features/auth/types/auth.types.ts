@@ -14,3 +14,25 @@ export interface User {
   email: string
   role: "admin" | "student"
 }
+
+export interface RegisterPayload {
+  username: string
+  email: string
+  password: string
+  password2: string
+  nim: string
+  first_name: string
+  last_name: string
+}
+
+export interface RegisterResponse {
+  message: string
+  user: {
+    id: number
+    username: string
+    email: string
+    nim: string
+    first_name: string
+    last_name: string
+  }
+}
