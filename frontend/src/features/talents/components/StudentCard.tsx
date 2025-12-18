@@ -8,7 +8,7 @@ const truncateBio = (text: string, maxWords: number = 15) => {
 
 const StudentCard = ({student}: {student: Talent}) => {
   return (
-    <div className="w-full h-full max-w-xl bg-white rounded-2xl shadow-md p-6 border border-gray-100">
+    <div className="w-full h-full max-w-xl bg-white dark:bg-slate-800 rounded-2xl shadow-md p-6 border border-gray-100 dark:border-slate-700 hover:shadow-lg transition-shadow duration-300">
       {/* Avatar + Name */}
       <div className="flex items-center gap-4">
         {/* Avatar */}
@@ -25,14 +25,14 @@ const StudentCard = ({student}: {student: Talent}) => {
         </div>
 
         <div className="text-left">
-          <h2 className="text-xl font-semibold text-gray-900">{student.username}</h2>
-          <p className="text-gray-600 text-sm">{student.prodi}</p>
-          <p className="text-gray-500 text-sm">NIM: {student.user?.nim}</p>
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">{student.username}</h2>
+          <p className="text-gray-600 dark:text-gray-400 text-sm">{student.prodi}</p>
+          <p className="text-gray-500 dark:text-gray-500 text-sm">NIM: {student.user?.nim}</p>
         </div>
       </div>
 
       {/* Bio */}
-      <p className="mt-4 text-gray-700 text-left text-sm leading-relaxed">
+      <p className="mt-4 text-gray-700 dark:text-gray-300 text-left text-sm leading-relaxed">
         {student.summary ? truncateBio(student.summary) : "Belum ada summary"}
       </p>
 
@@ -49,7 +49,7 @@ const StudentCard = ({student}: {student: Talent}) => {
 
         {/* Badge More */}
         {student.skills && student.skills.length > 4 && (
-          <span className="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">
+          <span className="px-3 py-1 bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-gray-300 text-sm rounded-full">
             +{student.skills.length - 4}
           </span>
         )}

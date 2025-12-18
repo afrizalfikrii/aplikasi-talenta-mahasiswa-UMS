@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useAuthStore } from "@/features/auth/store/auth.store";
 import { getMeApi } from "@/features/auth/api/auth.api";
+import { ModeToggle } from "@/components/mode-toggle";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -30,7 +31,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="sticky top-4 z-50 mx-4 md:mx-8">
+    <nav className="w-full sticky top-4 z-50 mx-4 md:mx-8">
       <div className="bg-white shadow-lg rounded-2xl max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* logo desktop */}
@@ -74,6 +75,7 @@ export default function Navbar() {
               Talenta
             </Link>
 
+
             {isAuthenticated ? (
               <div className="flex items-center space-x-4">
                 <Link
@@ -105,6 +107,9 @@ export default function Navbar() {
                 Login
               </Link>
             )}
+            
+            {/* Toggle Mode */}
+            <ModeToggle />
           </div>
 
           {/* Mobile Menu Button */}
@@ -185,6 +190,11 @@ export default function Navbar() {
                 Login
               </Link>
             )}
+            
+            {/* Mobile Toggle */}
+            <div className="px-4 py-2 flex justify-center">
+               <ModeToggle />
+            </div>
           </div>
         )}
       </div>
