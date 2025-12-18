@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"; 
 import { useState, useEffect } from "react";
-import { getPublicTalents } from "../../services/talent.service";
+import { getLatestTalents } from "../../services/talent.service";
 import type { Talent } from "../../types/talent";
 
 export default function CardHome() {
@@ -10,7 +10,7 @@ export default function CardHome() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getPublicTalents();
+        const data = await getLatestTalents();
         setTalents(data);
       } catch (error) {
         console.error("Gagal mengambil data:", error);

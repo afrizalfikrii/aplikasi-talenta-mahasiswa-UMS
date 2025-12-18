@@ -1,10 +1,14 @@
 from django.urls import path
-from .views import PublicTalentListView, PublicTalentDetailView, MyProfileView, DownloadCVView
+from .views import PublicTalentListView, PublicTalentDetailView, MyProfileView, DownloadCVView, LatestTalentListView
 
 urlpatterns = [
     # 1. URL untuk melihat semua talent (Public)
     # Akses: /api/talents/
     path('', PublicTalentListView.as_view(), name='talent-list'),
+
+    # 1.5. URL untuk melihat 5 talent terbaru (Public)
+    # Akses: /api/talents/latest/
+    path('latest/', LatestTalentListView.as_view(), name='latest-talents'),
 
     # 2. URL untuk edit profil sendiri (Private - Harus Login)
     # Akses: /api/talents/me/
