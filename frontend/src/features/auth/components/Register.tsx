@@ -68,9 +68,9 @@ export default function Register() {
   return (
     <div className="flex items-center justify-center from-slate-50 to-slate-200 px-4 mt-16 mb-16">
       <div className="w-full max-w-md">
-        <div className="bg-white rounded-lg shadow-lg p-8">  
+        <div className="bg-white rounded-lg shadow-lg p-8">
           <div className='justify-center mb-6 flex'>
-            <img src="/logo-desktop.svg" alt="logo-talenta" className="h-10 w-auto"/>
+            <img src="/logo-desktop.svg" alt="logo-talenta" className="h-10 w-auto" />
           </div>
 
           {successMessage && (
@@ -99,9 +99,8 @@ export default function Register() {
                   onChange={handleChange}
                   placeholder="Setiawan"
                   required
-                  className={`px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all ${
-                    errors.first_name ? 'border-red-500' : 'border-slate-300'
-                  }`}
+                  className={`text-black px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all ${errors.first_name ? 'border-red-500' : 'border-slate-300'
+                    }`}
                 />
                 {errors.first_name && (
                   <span className="text-xs text-red-500 mt-1">{errors.first_name}</span>
@@ -119,9 +118,8 @@ export default function Register() {
                   onChange={handleChange}
                   placeholder="Ade"
                   required
-                  className={`px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all ${
-                    errors.last_name ? 'border-red-500' : 'border-slate-300'
-                  }`}
+                  className={`text-black px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all ${errors.last_name ? 'border-red-500' : 'border-slate-300'
+                    }`}
                 />
                 {errors.last_name && (
                   <span className="text-xs text-red-500 mt-1">{errors.last_name}</span>
@@ -142,9 +140,8 @@ export default function Register() {
                   onChange={handleChange}
                   placeholder="L2002300001"
                   required
-                  className={`px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all ${
-                    errors.nim ? 'border-red-500' : 'border-slate-300'
-                  }`}
+                  className={`text-black px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all ${errors.nim ? 'border-red-500' : 'border-slate-300'
+                    }`}
                 />
                 {errors.nim && (
                   <span className="text-xs text-red-500 mt-1">{errors.nim}</span>
@@ -162,9 +159,8 @@ export default function Register() {
                   onChange={handleChange}
                   placeholder="adesetiawan"
                   required
-                  className={`px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all ${
-                    errors.username ? 'border-red-500' : 'border-slate-300'
-                  }`}
+                  className={`text-black px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all ${errors.username ? 'border-red-500' : 'border-slate-300'
+                    }`}
                 />
                 {errors.username && (
                   <span className="text-xs text-red-500 mt-1">{errors.username}</span>
@@ -184,9 +180,8 @@ export default function Register() {
                 onChange={handleChange}
                 placeholder="budi@student.ums.ac.id"
                 required
-                className={`px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all ${
-                  errors.email ? 'border-red-500' : 'border-slate-300'
-                }`}
+                className={`text-black px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all ${errors.email ? 'border-red-500' : 'border-slate-300'
+                  }`}
               />
               {errors.email && (
                 <span className="text-xs text-red-500 mt-1">{errors.email}</span>
@@ -205,9 +200,8 @@ export default function Register() {
                 onChange={handleChange}
                 placeholder="Masukkan password"
                 required
-                className={`px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all ${
-                  errors.password ? 'border-red-500' : 'border-slate-300'
-                }`}
+                className={`text-black px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all ${errors.password ? 'border-red-500' : 'border-slate-300'
+                  }`}
               />
               {errors.password && (
                 <span className="text-xs text-red-500 mt-1">{errors.password}</span>
@@ -226,17 +220,16 @@ export default function Register() {
                 onChange={handleChange}
                 placeholder="Ulangi password"
                 required
-                className={`px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all ${
-                  errors.password2 ? 'border-red-500' : 'border-slate-300'
-                }`}
+                className={`text-black px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all ${errors.password2 ? 'border-red-500' : 'border-slate-300'
+                  }`}
               />
               {errors.password2 && (
                 <span className="text-xs text-red-500 mt-1">{errors.password2}</span>
               )}
             </div>
 
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               disabled={isLoading}
               className="w-full bg-slate-700 text-white py-2 rounded-lg hover:bg-slate-800 transition-colors font-semibold shadow-md hover:shadow-lg mt-4 disabled:opacity-50 disabled:cursor-not-allowed"
             >
