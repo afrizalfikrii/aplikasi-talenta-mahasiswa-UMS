@@ -13,6 +13,9 @@ import NotFoundPage from "@/pages/NotFoundPage"
 import TalentaPage from "@/features/talents/pages/TalentaPage"
 import TalentDetailPage from "@/features/talents/pages/TalentaDetailPage"
 
+// admin
+import AdminDashboard from "@/features/admin/pages/AdminDashboard"
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -25,6 +28,11 @@ export const router = createBrowserRouter([
       {
         path: "talenta",
         element: <TalentaPage />, // PUBLIC
+      },
+      // mencoba tampilan admin dashboard
+      {
+        path: "admin/dashboard",
+        element: <AdminDashboard />,
       },
 
       // 🔒 PROTECTED TALENT DETAIL
