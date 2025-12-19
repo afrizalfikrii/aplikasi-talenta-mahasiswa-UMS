@@ -4,7 +4,7 @@ import Footer from "./Footer"
 
 const AppLayout = () => {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="w-full min-h-screen flex flex-col">
       <Navbar />
       <main className="flex-grow">
         <Outlet />

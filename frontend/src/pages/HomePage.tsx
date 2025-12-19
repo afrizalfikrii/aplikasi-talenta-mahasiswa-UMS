@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import CardHome from "../component/layout/CardHome";
+import CardHome from "../components/layout/CardHome";
 
 export default function Home() {
   return (
