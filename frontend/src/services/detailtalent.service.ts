@@ -1,4 +1,4 @@
-import http from "../api/http"
+import http from "@/lib/http";
 import type { DetailTalent } from "../types/detailTalent";
 
 export const getTalentDetail = async (
