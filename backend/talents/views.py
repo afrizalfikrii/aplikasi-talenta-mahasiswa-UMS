@@ -1,10 +1,10 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import FileResponse, HttpResponse
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, viewsets
 from rest_framework import filters
 from django_filters import rest_framework as django_filters
-from .models import TalentProfile
-from .serializers import TalentProfileSerializer
+from .models import TalentProfile, Skill, Experience, Portfolio
+from .serializers import TalentProfileSerializer, SkillSerializer, ExperienceSerializer, PortfolioSerializer
 
 
 # Custom FilterSet untuk handle filtering by skill
@@ -98,3 +98,75 @@ class DownloadCVView(generics.RetrieveAPIView):
         response = FileResponse(cv_file.open('rb'), as_attachment=True)
         response['Content-Disposition'] = f'attachment; filename="CV_{profile.user.username}.pdf"'
         return response
+
+
+# ============================================
+# CRUD ENDPOINTS - PRIVATE (Authenticated)
+# ============================================
+
+# 5. CRUD SKILL: Manage Skills Sendiri
+class SkillViewSet(viewsets.ModelViewSet):
+    """
+    ViewSet untuk CRUD Skill milik user yang sedang login.
+    
+    Endpoints:
+    - GET /api/talents/me/skills/ - List semua skill user
+    - POST /api/talents/me/skills/ - Tambah skill baru
+    - GET /api/talents/me/skills/{id}/ - Detail skill
+    - PUT /api/talents/me/skills/{id}/ - Update skill
+    - DELETE /api/talents/me/skills/{id}/ - Hapus skill
+    """
+    serializer_class = SkillSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    
+    def get_queryset(self):
+        # User hanya bisa lihat skill miliknya sendiri
+        return Skill.objects.filter(user=self.request.user).order_by('-id')
+    
+    def perform_create(self, serializer):
+        # Saat create, otomatis assign ke user yang sedang login
+        serializer.save(user=self.request.user)
+
+
+# 6. CRUD EXPERIENCE: Manage Experiences Sendiri
+class ExperienceViewSet(viewsets.ModelViewSet):
+    """
+    ViewSet untuk CRUD Experience milik user yang sedang login.
+    
+    Endpoints:
+    - GET /api/talents/me/experiences/ - List semua experience user
+    - POST /api/talents/me/experiences/ - Tambah experience baru
+    - GET /api/talents/me/experiences/{id}/ - Detail experience
+    - PUT /api/talents/me/experiences/{id}/ - Update experience
+    - DELETE /api/talents/me/experiences/{id}/ - Hapus experience
+    """
+    serializer_class = ExperienceSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    
+    def get_queryset(self):
+        return Experience.objects.filter(user=self.request.user).order_by('-start_date')
+    
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+# 7. CRUD PORTFOLIO: Manage Portfolios Sendiri
+class PortfolioViewSet(viewsets.ModelViewSet):
+    """
+    ViewSet untuk CRUD Portfolio milik user yang sedang login.
+    
+    Endpoints:
+    - GET /api/talents/me/portfolios/ - List semua portfolio user
+    - POST /api/talents/me/portfolios/ - Tambah portfolio baru
+    - GET /api/talents/me/portfolios/{id}/ - Detail portfolio
+    - PUT /api/talents/me/portfolios/{id}/ - Update portfolio
+    - DELETE /api/talents/me/portfolios/{id}/ - Hapus portfolio
+    """
+    serializer_class = PortfolioSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    
+    def get_queryset(self):
+        return Portfolio.objects.filter(user=self.request.user).order_by('-created_at')
+    
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
