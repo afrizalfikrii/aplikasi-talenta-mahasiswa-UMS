@@ -1,55 +1,32 @@
-import { useState, useEffect } from "react";
-import { getMySkills, createSkill, updateSkill, deleteSkill, type Skill, type SkillPayload } from "../api/skill.api";
+import { useState } from "react";
+import { useSkills } from "../hooks/useSkills";
+import type { SkillPayload } from "../api/skill.api";
 
 export default function SkillsCard() {
-    const [skills, setSkills] = useState<Skill[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+    const { skills, loading, error, addSkill, editSkill, removeSkill } = useSkills();
     const [showModal, setShowModal] = useState(false);
-    const [editingSkill, setEditingSkill] = useState<Skill | null>(null);
+    const [editingSkillId, setEditingSkillId] = useState<number | null>(null);
     const [formData, setFormData] = useState<SkillPayload>({
         skill_name: "",
         proficiency_level: "beginner"
     });
     const [submitting, setSubmitting] = useState(false);
 
-    // Fetch skills dari backend
-    const fetchSkills = async () => {
-        try {
-            setLoading(true);
-            const data = await getMySkills();
-            setSkills(data);
-            setError(null);
-        } catch (err: any) {
-            console.error("Error fetching skills:", err);
-            setError(err.response?.data?.detail || "Gagal mengambil data skills");
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    useEffect(() => {
-        fetchSkills();
-    }, []);
-
-    // Handle add skill
     const handleAddSkill = () => {
-        setEditingSkill(null);
+        setEditingSkillId(null);
         setFormData({ skill_name: "", proficiency_level: "beginner" });
         setShowModal(true);
     };
 
-    // Handle edit skill
-    const handleEditSkill = (skill: Skill) => {
-        setEditingSkill(skill);
+    const handleEditSkill = (id: number, skillName: string, proficiencyLevel: SkillPayload['proficiency_level']) => {
+        setEditingSkillId(id);
         setFormData({
-            skill_name: skill.skill_name,
-            proficiency_level: skill.proficiency_level
+            skill_name: skillName,
+            proficiency_level: proficiencyLevel
         });
         setShowModal(true);
     };
 
-    // Handle submit form
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         
@@ -61,18 +38,12 @@ export default function SkillsCard() {
         try {
             setSubmitting(true);
             
-            if (editingSkill) {
-                // Update existing skill
-                await updateSkill(editingSkill.id, formData);
+            if (editingSkillId) {
+                await editSkill(editingSkillId, formData);
             } else {
-                // Create new skill
-                await createSkill(formData);
+                await addSkill(formData);
             }
             
-            // Refresh skills list
-            await fetchSkills();
-            
-            // Close modal
             setShowModal(false);
             setFormData({ skill_name: "", proficiency_level: "beginner" });
         } catch (err: any) {
@@ -83,13 +54,11 @@ export default function SkillsCard() {
         }
     };
 
-    // Handle delete skill
     const handleDeleteSkill = async (id: number) => {
         if (!confirm("Yakin ingin menghapus skill ini?")) return;
 
         try {
-            await deleteSkill(id);
-            await fetchSkills();
+            await removeSkill(id);
         } catch (err: any) {
             console.error("Error deleting skill:", err);
             alert(err.response?.data?.detail || "Gagal menghapus skill");
@@ -143,7 +112,7 @@ export default function SkillsCard() {
                                         </label>
                                         <div className="flex gap-2">
                                             <button
-                                                onClick={() => handleEditSkill(skill)}
+                                                onClick={() => handleEditSkill(skill.id, skill.skill_name, skill.proficiency_level)}
                                                 className="text-blue-500 hover:text-blue-700 text-sm"
                                             >
                                                 Edit
@@ -170,12 +139,11 @@ export default function SkillsCard() {
                 </div>
             </div>
 
-            {/* Modal Form */}
             {showModal && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
                     <div className="bg-white rounded-2xl shadow-xl max-w-md w-full p-6">
                         <h3 className="text-xl font-bold text-slate-800 mb-4">
-                            {editingSkill ? "Edit Skill" : "Tambah Skill Baru"}
+                            {editingSkillId ? "Edit Skill" : "Tambah Skill Baru"}
                         </h3>
                         
                         <form onSubmit={handleSubmit} className="space-y-4">
