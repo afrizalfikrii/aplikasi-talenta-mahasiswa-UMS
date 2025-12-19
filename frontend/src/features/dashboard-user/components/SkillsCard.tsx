@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getMySkills, createSkill, updateSkill, deleteSkill, type Skill, type SkillPayload } from "../../talents/api/skill.api";
+import { getMySkills, createSkill, updateSkill, deleteSkill, type Skill, type SkillPayload } from "../api/skill.api";
 
 export default function SkillsCard() {
     const [skills, setSkills] = useState<Skill[]>([]);
