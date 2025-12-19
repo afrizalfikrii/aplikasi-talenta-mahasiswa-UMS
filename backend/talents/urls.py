@@ -9,6 +9,7 @@ from .views import (
     SkillViewSet,
     ExperienceViewSet,
     PortfolioViewSet,
+    AdminDashboardStatsView,
 )
 
 # Setup Router untuk ViewSets
@@ -41,4 +42,7 @@ urlpatterns = [
     # 5. URL untuk melihat detail talent berdasarkan username (Public)
     # Akses: /api/talents/afrizal/
     path('<str:user__username>/', PublicTalentDetailView.as_view(), name='talent-detail'),
+
+    # === ADMIN DASHBOARD STATS VIEW ===
+    path('admin/dashboard-stats/', AdminDashboardStatsView.as_view(), name='admin-dashboard-stats'),
 ]

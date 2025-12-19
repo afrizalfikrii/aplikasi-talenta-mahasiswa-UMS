@@ -1,11 +1,17 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import FileResponse, HttpResponse
+from django.contrib.auth import get_user_model
+from django.db.models import Count
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from rest_framework import generics, permissions, viewsets
 from rest_framework import filters
 from django_filters import rest_framework as django_filters
+from authentication.permission import IsAdminUser
 from .models import TalentProfile, Skill, Experience, Portfolio
-from .serializers import TalentProfileSerializer, SkillSerializer, ExperienceSerializer, PortfolioSerializer
+from .serializers import TalentProfileSerializer, SkillSerializer, ExperienceSerializer, PortfolioSerializer, AdminDashboardStatsSerializer
 
+User = get_user_model()
 
 # Custom FilterSet untuk handle filtering by skill
 class TalentProfileFilter(django_filters.FilterSet):
@@ -170,3 +176,54 @@ class PortfolioViewSet(viewsets.ModelViewSet):
     
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+class AdminDashboardStatsView(APIView):
+    """
+    Endpoint untuk dashboard admin yang menampilkan statistik pengguna dan talenta.
+    Akses: /api/admin/dashboard/
+    Hanya untuk admin.
+    """
+    permission_classes = [IsAdminUser]
+
+    def get(self, request):
+        # Total mahasiswa (hanya user dengan role "student")
+        total_student = User.objects.filter(role="student").count()
+
+        # Profil aktif & nonaktif untuk mahasiswa
+        active_profiles = User.objects.filter(role="student", is_active=True).count()
+        inactive_profiles = User.objects.filter(role="student", is_active=False).count()
+
+        # Total unique skills
+        total_skills = Skill.objects.values("skill_name").distinct().count()
+
+        # Top program studi berdasarkan jumlah profil
+        top_prodi_row = (
+            TalentProfile.objects
+            .values("prodi")
+            .annotate(total=Count("id"))
+            .order_by("-total")
+            .first()
+        )
+
+        top_prodi = {
+            "name": top_prodi_row["prodi"] if top_prodi_row else "N/A",
+            "total": top_prodi_row["total"] if top_prodi_row else 0,
+        }
+
+        # Total experiences milik mahasiswa
+        total_experiences = Experience.objects.filter(user__role="student").count()
+        avg_experience = round(total_experiences / total_student, 2) if total_student > 0 else 0.0
+
+        # Kunci-kunci disesuaikan dengan frontend types
+        data = {
+            "total_student": total_student,
+            "active_profiles": active_profiles,
+            "inactive_profiles": inactive_profiles,
+            "total_skills": total_skills,
+            "top_prodi": top_prodi,
+            "avg_experience": avg_experience,
+        }
+
+        # Serialisasi output
+        serializer = AdminDashboardStatsSerializer(data)
+        return Response(serializer.data)

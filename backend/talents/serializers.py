@@ -58,3 +58,11 @@ class TalentProfileSerializer(serializers.ModelSerializer):
         user = obj.user
         experiences = user.experiences.all()
         return ExperienceSerializer(experiences, many=True).data
+    
+class AdminDashboardStatsSerializer(serializers.Serializer):
+    total_student = serializers.IntegerField()
+    active_profiles = serializers.IntegerField()
+    inactive_profiles = serializers.IntegerField()
+    total_skills = serializers.IntegerField()
+    top_prodi = serializers.DictField()
+    avg_experience = serializers.FloatField()
