@@ -16,6 +16,9 @@ import TalentDetailPage from "@/features/talents/pages/TalentaDetailPage"
 // admin
 import AdminDashboard from "@/features/admin/pages/AdminDashboard"
 
+// user
+import UserDashboard from "@/features/dashboard-user/UserDashboard"
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -34,7 +37,10 @@ export const router = createBrowserRouter([
         path: "admin/dashboard",
         element: <AdminDashboard />,
       },
-
+      {
+        path: "user/dashboard",
+        element: <UserDashboard />,
+      },
       // 🔒 PROTECTED TALENT DETAIL
       {
         element: <ProtectedRoute />,

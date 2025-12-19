@@ -7,7 +7,7 @@ import { ModeToggle } from "@/components/mode-toggle";
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
-  
+
   const { isAuthenticated, user, logout, setUser } = useAuthStore();
 
   useEffect(() => {
@@ -77,28 +77,26 @@ export default function Navbar() {
 
 
             {isAuthenticated ? (
-              <div className="flex items-center space-x-4">
-                <Link
-                  to="/dashboard"
-                  className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
-                >
-                  Dashboard
-                </Link>
-                <div className="flex items-center space-x-3 px-4 py-2 bg-gray-50 rounded-lg">
-                  <div className="w-8 h-8 bg-slate-600 rounded-full flex items-center justify-center text-white font-semibold">
-                    {user?.username.charAt(0).toUpperCase() || "U"}
+              <Link
+                to="/user/dashboard"
+              >
+                <div className="flex items-center space-x-4">
+                  <div className="flex items-center space-x-3 px-4 py-2 bg-gray-50 rounded-lg">
+                    <div className="w-8 h-8 bg-slate-600 rounded-full flex items-center justify-center text-white font-semibold">
+                      {user?.username.charAt(0).toUpperCase() || "U"}
+                    </div>
+                    <span className="text-gray-700 font-medium">
+                      {user?.username || "User"}
+                    </span>
                   </div>
-                  <span className="text-gray-700 font-medium">
-                    {user?.username || "User"}
-                  </span>
+                  <button
+                    onClick={handleLogout}
+                    className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors font-medium"
+                  >
+                    Logout
+                  </button>
                 </div>
-                <button
-                  onClick={handleLogout}
-                  className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors font-medium"
-                >
-                  Logout
-                </button>
-              </div>
+              </Link>
             ) : (
               <Link
                 to="/auth/login"
@@ -107,7 +105,7 @@ export default function Navbar() {
                 Login
               </Link>
             )}
-            
+
             {/* Toggle Mode */}
             <ModeToggle />
           </div>
@@ -190,10 +188,10 @@ export default function Navbar() {
                 Login
               </Link>
             )}
-            
+
             {/* Mobile Toggle */}
             <div className="px-4 py-2 flex justify-center">
-               <ModeToggle />
+              <ModeToggle />
             </div>
           </div>
         )}
