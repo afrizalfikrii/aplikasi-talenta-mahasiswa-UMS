@@ -1,6 +1,9 @@
 import type { TalentDetail } from "../types/talent.types"
 const StudentCardDetail = ({ student }: { student: TalentDetail }) => {
-  const initial = student.username?.charAt(0)?.toUpperCase() ?? "?";
+  const fullName = student.user?.first_name && student.user?.last_name 
+    ? `${student.user.first_name} ${student.user.last_name}`.trim()
+    : student.username;
+  const initial = fullName?.charAt(0)?.toUpperCase() ?? "?";
 
   return (
     <div className="w-full max-w-6xl mx-auto p-5 sm:p-6 bg-white shadow-md rounded-2xl flex flex-col sm:flex-row gap-7 items-start border border-gray-200">
@@ -8,7 +11,7 @@ const StudentCardDetail = ({ student }: { student: TalentDetail }) => {
         {student.profile_picture ? (
           <img
             src={student.profile_picture}
-            alt={`${student.username} profile`}
+            alt={`${fullName} profile`}
             className="w-full h-full object-cover"
           />
         ) : (
@@ -17,7 +20,7 @@ const StudentCardDetail = ({ student }: { student: TalentDetail }) => {
       </div>
 
       <div className="flex flex-col gap-1 flex-1 text-justify">
-        <h2 className="text-2xl font-semibold text-gray-800">{student.username}</h2>
+        <h2 className="text-2xl font-semibold text-gray-800">{fullName}</h2>
         <p className="text-lg text-gray-600">{student.prodi}</p>
         <p className="text-sm text-gray-500">NIM: {student.user?.nim}</p>
 

@@ -32,4 +32,9 @@ export interface TalentDetail extends Talent {
   github_url?: string
   website_url?: string
   experiences?: Experience[]
+  user?: {
+    nim?: string
+    first_name?: string
+    last_name?: string
+  }
 }
