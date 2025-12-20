@@ -77,26 +77,25 @@ export default function Navbar() {
 
 
             {isAuthenticated ? (
-              <Link
-                to="/user/dashboard"
-              >
-                <div className="flex items-center space-x-4">
-                  <div className="flex items-center space-x-3 px-4 py-2 bg-gray-50 rounded-lg">
-                    <div className="w-8 h-8 bg-slate-600 rounded-full flex items-center justify-center text-white font-semibold">
-                      {user?.username.charAt(0).toUpperCase() || "U"}
-                    </div>
-                    <span className="text-gray-700 font-medium">
-                      {user?.username || "User"}
-                    </span>
+              <>
+                <Link
+                  to={user?.role === "admin" ? "/admin/dashboard" : "/user/dashboard"}
+                  className="flex items-center space-x-3 px-4 py-2 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                >
+                  <div className="w-8 h-8 bg-slate-600 rounded-full flex items-center justify-center text-white font-semibold">
+                    {user?.username.charAt(0).toUpperCase() || "U"}
                   </div>
-                  <button
-                    onClick={handleLogout}
-                    className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors font-medium"
-                  >
-                    Logout
-                  </button>
-                </div>
-              </Link>
+                  <span className="text-gray-700 font-medium">
+                    {user?.username || "User"}
+                  </span>
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors font-medium"
+                >
+                  Logout
+                </button>
+              </>
             ) : (
               <Link
                 to="/auth/login"
@@ -163,7 +162,7 @@ export default function Navbar() {
                   </span>
                 </div>
                 <Link
-                  to="/dashboard"
+                  to={user?.role === "admin" ? "/admin/dashboard" : "/user/dashboard"}
                   className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-colors"
                   onClick={() => setIsMenuOpen(false)}
                 >
