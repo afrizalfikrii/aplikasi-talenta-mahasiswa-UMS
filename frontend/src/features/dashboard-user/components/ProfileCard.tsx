@@ -3,10 +3,11 @@ import { useProfile } from "../hooks/useProfile";
 import type { ProfileUpdatePayload } from "../api/profile.api";
 
 export default function ProfileCard() {
-    const { profile, loading, error, editProfile } = useProfile();
+    const { profile, loading, error, editProfile, uploadPhoto, uploadCVFile } = useProfile();
     const [showModal, setShowModal] = useState(false);
     const [formData, setFormData] = useState<ProfileUpdatePayload>({});
     const [submitting, setSubmitting] = useState(false);
+    const [uploading, setUploading] = useState(false);
 
     const handleEditProfile = () => {
         if (!profile) return;
@@ -34,6 +35,58 @@ export default function ProfileCard() {
             alert(err.response?.data?.detail || "Gagal mengupdate profil");
         } finally {
             setSubmitting(false);
+        }
+    };
+
+    const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        if (file.size > 5 * 1024 * 1024) {
+            alert("Ukuran file maksimal 5MB");
+            return;
+        }
+
+        if (!file.type.startsWith('image/')) {
+            alert("File harus berupa gambar (JPG, PNG, WEBP)");
+            return;
+        }
+
+        try {
+            setUploading(true);
+            await uploadPhoto(file);
+            alert("Foto profil berhasil diupload!");
+        } catch (err: any) {
+            console.error("Error uploading photo:", err);
+            alert(err.response?.data?.detail || "Gagal upload foto profil");
+        } finally {
+            setUploading(false);
+        }
+    };
+
+    const handleCVUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        if (file.size > 10 * 1024 * 1024) {
+            alert("Ukuran file maksimal 10MB");
+            return;
+        }
+
+        if (file.type !== 'application/pdf') {
+            alert("File CV harus berupa PDF");
+            return;
+        }
+
+        try {
+            setUploading(true);
+            await uploadCVFile(file);
+            alert("CV berhasil diupload!");
+        } catch (err: any) {
+            console.error("Error uploading CV:", err);
+            alert(err.response?.data?.detail || "Gagal upload CV");
+        } finally {
+            setUploading(false);
         }
     };
 
@@ -120,6 +173,73 @@ export default function ProfileCard() {
                         <label className="text-sm font-medium text-slate-500">Bio</label>
                         <div className="w-full p-3 bg-slate-50 border border-slate-200 rounded-lg text-slate-900">
                             {profile.summary || "-"}
+                        </div>
+                    </div>
+                </div>
+
+                <div className="mt-8 pt-8 border-t border-slate-200">
+                    <h3 className="text-lg font-semibold text-slate-800 mb-4">Upload Files</h3>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="space-y-3">
+                            <label className="block text-sm font-medium text-slate-700">
+                                Foto Profil
+                            </label>
+                            {profile.profile_picture && (
+                                <div className="mb-2">
+                                    <img 
+                                        src={profile.profile_picture} 
+                                        alt="Profile" 
+                                        className="w-32 h-32 rounded-full object-cover border-2 border-slate-200"
+                                    />
+                                </div>
+                            )}
+                            <input
+                                type="file"
+                                accept="image/*"
+                                onChange={handlePhotoUpload}
+                                disabled={uploading}
+                                className="block w-full text-sm text-slate-500
+                                    file:mr-4 file:py-2 file:px-4
+                                    file:rounded-lg file:border-0
+                                    file:text-sm file:font-semibold
+                                    file:bg-slate-600 file:text-white
+                                    hover:file:bg-slate-700
+                                    file:cursor-pointer
+                                    disabled:opacity-50"
+                            />
+                            <p className="text-xs text-slate-500">Max 5MB (JPG, PNG, WEBP)</p>
+                        </div>
+
+                        <div className="space-y-3">
+                            <label className="block text-sm font-medium text-slate-700">
+                                CV (PDF)
+                            </label>
+                            {profile.cv_file && (
+                                <div className="mb-2 p-3 bg-green-50 border border-green-200 rounded-lg">
+                                    <p className="text-sm text-green-700 flex items-center gap-2">
+                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        CV sudah diupload
+                                    </p>
+                                </div>
+                            )}
+                            <input
+                                type="file"
+                                accept=".pdf"
+                                onChange={handleCVUpload}
+                                disabled={uploading}
+                                className="block w-full text-sm text-slate-500
+                                    file:mr-4 file:py-2 file:px-4
+                                    file:rounded-lg file:border-0
+                                    file:text-sm file:font-semibold
+                                    file:bg-slate-600 file:text-white
+                                    hover:file:bg-slate-700
+                                    file:cursor-pointer
+                                    disabled:opacity-50"
+                            />
+                            <p className="text-xs text-slate-500">Max 10MB (PDF only)</p>
                         </div>
                     </div>
                 </div>

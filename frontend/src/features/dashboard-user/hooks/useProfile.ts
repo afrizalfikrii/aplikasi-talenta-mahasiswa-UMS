@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { getMyProfile, updateMyProfile, type TalentProfile, type ProfileUpdatePayload } from "../api/profile.api"
+import { getMyProfile, updateMyProfile, uploadProfilePicture, uploadCV, type TalentProfile, type ProfileUpdatePayload } from "../api/profile.api"
 
 export const useProfile = () => {
   const [profile, setProfile] = useState<TalentProfile | null>(null)
@@ -25,6 +25,16 @@ export const useProfile = () => {
     await fetchProfile()
   }
 
+  const uploadPhoto = async (file: File) => {
+    await uploadProfilePicture(file)
+    await fetchProfile()
+  }
+
+  const uploadCVFile = async (file: File) => {
+    await uploadCV(file)
+    await fetchProfile()
+  }
+
   useEffect(() => {
     fetchProfile()
   }, [])
@@ -34,6 +44,8 @@ export const useProfile = () => {
     loading,
     error,
     editProfile,
+    uploadPhoto,
+    uploadCVFile,
     refetch: fetchProfile
   }
 }

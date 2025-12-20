@@ -71,10 +71,10 @@ const SkillsExperiences = ({
                     {/* Text Content */}
                     <div className="flex-1">
                       <h3 className="text-lg font-semibold text-gray-800">
-                        {exp.title}
+                        {exp.job_title}
                       </h3>
                       <p className="text-gray-600 text-left mt-1">
-                        {exp.company}
+                        {exp.company_name}
                       </p>
                       <div className="flex items-center gap-2 text-gray-500 text-sm mt-2">
                         <img src="/calendar.png" alt="date" className="h-4 w-4" />
