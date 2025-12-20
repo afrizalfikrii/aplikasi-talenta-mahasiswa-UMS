@@ -47,25 +47,25 @@ const DaftarTalenta = ({ onStatsUpdate, searchTerm = "", filterStatus = "all" }:
   }, [loadedTalents, searchTerm, filterStatus]);
   
   return (
-    <div className="w-full bg-white rounded-xl shadow p-4 overflow-x-auto">
+    <div className="w-full bg-white dark:bg-slate-900 rounded-xl shadow p-4 overflow-x-auto transition-colors duration-300">
       <table className="min-w-full table-fixed text-sm">
         <DaftarTalentaHead />
         {loading ? (
           <tbody>
             <tr>
-              <td colSpan={7} className="text-center py-4">Loading talents...</td>
+              <td colSpan={7} className="text-center py-4 dark:text-gray-300">Loading talents...</td>
             </tr>
           </tbody>
         ) : error ? (
           <tbody>
             <tr>
-              <td colSpan={7} className="text-center py-4 text-red-600">Error: {error}</td>
+              <td colSpan={7} className="text-center py-4 text-red-600 dark:text-red-400">Error: {error}</td>
             </tr>
           </tbody>
         ) : filteredTalents.length === 0 ? (
           <tbody>
             <tr>
-              <td colSpan={7} className="text-center py-8 text-gray-500">
+              <td colSpan={7} className="text-center py-8 text-gray-500 dark:text-gray-400">
                 {searchTerm || filterStatus !== "all" 
                   ? "Tidak ada data yang sesuai dengan pencarian atau filter" 
                   : "Tidak ada data"}

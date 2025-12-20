@@ -14,7 +14,7 @@ export default function SearchFilterBar({
   onFilterChange,
 }: SearchFilterBarProps) {
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 flex flex-col md:flex-row gap-4 items-center">
+    <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-gray-100 dark:border-slate-800 p-4 flex flex-col md:flex-row gap-4 items-center transition-colors duration-300">
       
       {/* Search Input */}
       <div className="relative flex-1 w-full">
@@ -24,7 +24,7 @@ export default function SearchFilterBar({
           value={searchTerm}
           onChange={(e) => onSearchChange(e.target.value)}
           placeholder="Cari berdasarkan nama, NIM, atau program studi..."
-          className="w-full pl-11 pr-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
+          className="w-full pl-11 pr-4 py-2.5 border border-gray-200 dark:border-slate-700 rounded-lg text-sm bg-white dark:bg-slate-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-red-500 placeholder:text-gray-400 dark:placeholder:text-gray-500 transition-colors"
         />
       </div>
 
@@ -35,7 +35,7 @@ export default function SearchFilterBar({
           className={`px-4 py-2.5 text-sm rounded-lg font-medium transition-colors ${
             filterStatus === "all"
               ? "bg-red-600 text-white"
-              : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+              : "bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-slate-300 hover:bg-gray-200 dark:hover:bg-slate-700"
           }`}
         >
           Semua
@@ -46,7 +46,7 @@ export default function SearchFilterBar({
           className={`px-4 py-2.5 text-sm rounded-lg font-medium transition-colors ${
             filterStatus === "active"
               ? "bg-red-600 text-white"
-              : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+              : "bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-slate-300 hover:bg-gray-200 dark:hover:bg-slate-700"
           }`}
         >
           Aktif
@@ -57,7 +57,7 @@ export default function SearchFilterBar({
           className={`px-4 py-2.5 text-sm rounded-lg font-medium transition-colors ${
             filterStatus === "inactive"
               ? "bg-red-600 text-white"
-              : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+              : "bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-slate-300 hover:bg-gray-200 dark:hover:bg-slate-700"
           }`}
         >
           Nonaktif
