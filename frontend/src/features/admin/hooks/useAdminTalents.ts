@@ -3,45 +3,28 @@ import { getAdminTalents } from "../api/admin.talents.api";
 import type { AdminTalent } from "../types/talent-admin.types";
 
 export const useAdminTalents = () => {
-  const [talents, setTalents] = useState<AdminTalent[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    // MOCK DATA FOR UI TESTING
-    const mockTalents: AdminTalent[] = [
-      {
-        id: 1,
-        name: "Budi Santoso",
-        nim: "L200210001",
-        email: "l200210001@student.ums.ac.id",
-        program_studi: "Informatika",
-        skills: ["React", "Python", "Docker"],
-        is_active: true,
-      },
-      {
-        id: 2,
-        name: "Siti Aminah",
-        nim: "L200210002",
-        email: "l200210002@student.ums.ac.id",
-        program_studi: "Sistem Informasi",
-        skills: ["Figma", "UI/UX"],
-        is_active: true,
-      },
-      {
-        id: 3,
-        name: "Rudi Hartono",
-        nim: "L200210003",
-        email: "l200210003@student.ums.ac.id",
-        program_studi: "Teknik Elektro",
-        skills: ["Arduino", "C++"],
-        is_active: false,
-      },
-    ];
-
-    setTalents(mockTalents);
-    setLoading(false);
+  const loadTalents = useCallback(() => {
+    setLoading(true);
+    setError(null);
+    getAdminTalents()
+      .then(setTalents)
+      .catch((err) => {
+        console.error("Error fetching admin talents:", err);
+        console.error("Error response:", err.response);
+        if (err.response?.status === 403) {
+          setError("Access denied. You need admin privileges.");
+        } else if (err.response?.status === 401) {
+          setError("Not authenticated. Please login as admin.");
+        } else {
+          setError(err.response?.data?.detail || err.message || "Failed to fetch talents");
+        }
+      })
+      .finally(() => setLoading(false));
   }, []);
 
-  return { talents, loading, error, refetch: () => { } };
+  useEffect(() => {
+    loadTalents();
+  }, [loadTalents]);
+
+  return { talents, loading, error, refetch: loadTalents };
 };
