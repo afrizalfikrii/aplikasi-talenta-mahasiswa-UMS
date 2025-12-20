@@ -11,6 +11,8 @@ from .views import (
     PortfolioViewSet,
     AdminDashboardStatsView,
     AdminTalentListView,
+    AdminToggleUserStatusView,
+    AdminUpdateUserView,
 )
 
 # Setup Router untuk ViewSets
@@ -48,4 +50,8 @@ urlpatterns = [
     path('admin/talents/', AdminTalentListView.as_view(), name='admin-talent-list'),
 
     path('admin/dashboard-stats/', AdminDashboardStatsView.as_view(), name='admin-dashboard-stats'),
+
+    path('admin/users/<int:pk>/toggle-status/', AdminToggleUserStatusView.as_view(), name='admin-toggle-user-status'),
+    
+    path('admin/users/<int:pk>/', AdminUpdateUserView.as_view(), name='admin-update-user'),
 ]

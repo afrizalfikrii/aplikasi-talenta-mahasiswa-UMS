@@ -244,3 +244,58 @@ class AdminDashboardStatsView(APIView):
         # Serialisasi output
         serializer = AdminDashboardStatsSerializer(data)
         return Response(serializer.data)
+    
+class AdminToggleUserStatusView(APIView):
+    """
+    Admin endpoint untuk activate/deactivate user
+    Akses: /api/talents/admin/users/<id>/toggle-status/
+    """
+    permission_classes = [permissions.IsAuthenticated]
+
+    def patch(self, request, pk):
+        try:
+            user = User.objects.get(pk=pk, role="student")
+            # Toggle status
+            user.is_active = not user.is_active
+            user.save()
+            
+            return Response({
+                "message": f"User {'activated' if user.is_active else 'deactivated'} successfully",
+                "is_active": user.is_active
+            })
+        except User.DoesNotExist:
+            return Response(
+                {"error": "User not found"},
+                status=404
+            )
+
+
+class AdminUpdateUserView(generics.UpdateAPIView):
+    """
+    Admin endpoint untuk update user profile
+    Akses: /api/talents/admin/users/<id>/
+    """
+    serializer_class = AdminTalentSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    queryset = User.objects.filter(role="student")
+    
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        
+        # Update user data
+        if 'email' in request.data:
+            instance.email = request.data['email']
+        if 'nim' in request.data:
+            instance.nim = request.data['nim']
+            
+        # Update profile data if exists
+        if hasattr(instance, 'profile'):
+            profile = instance.profile
+            if 'program_studi' in request.data:
+                profile.prodi = request.data['program_studi']
+                profile.save()
+        
+        instance.save()
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
