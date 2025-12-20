@@ -3,6 +3,10 @@ import { getAdminTalents } from "../api/admin.talents.api";
 import type { AdminTalent } from "../types/talent-admin.types";
 
 export const useAdminTalents = () => {
+  const [talents, setTalents] = useState<AdminTalent[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
   const loadTalents = useCallback(() => {
     setLoading(true);
     setError(null);
