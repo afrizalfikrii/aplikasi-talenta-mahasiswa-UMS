@@ -9,7 +9,7 @@ from rest_framework import filters
 from django_filters import rest_framework as django_filters
 from authentication.permission import IsAdminUser
 from .models import TalentProfile, Skill, Experience, Portfolio
-from .serializers import TalentProfileSerializer, SkillSerializer, ExperienceSerializer, PortfolioSerializer, AdminDashboardStatsSerializer
+from .serializers import TalentProfileSerializer, SkillSerializer, ExperienceSerializer, PortfolioSerializer, AdminDashboardStatsSerializer, AdminTalentSerializer, HomePageStatsSerializer
 
 User = get_user_model()
 
@@ -101,6 +101,23 @@ class PortfolioViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
+class AdminTalentListView(generics.ListAPIView):
+    """
+    Admin endpoint untuk melihat daftar semua mahasiswa/talent
+    Akses: /api/admin/talents/
+    """
+    serializer_class = AdminTalentSerializer
+    permission_classes = [IsAdminUser]
+
+    def get_queryset(self):
+        return (
+            User.objects
+            .filter(role="student")
+            .select_related("profile")
+            .prefetch_related("skills")
+            .order_by('-id')
+        )
+
 class AdminDashboardStatsView(APIView):
     permission_classes = [IsAdminUser]
 
@@ -136,4 +153,90 @@ class AdminDashboardStatsView(APIView):
         }
 
         serializer = AdminDashboardStatsSerializer(data)
+        return Response(serializer.data)
+    
+class AdminToggleUserStatusView(APIView):
+    """
+    Admin endpoint untuk activate/deactivate user
+    Akses: /api/talents/admin/users/<id>/toggle-status/
+    """
+    permission_classes = [permissions.IsAuthenticated]
+
+    def patch(self, request, pk):
+        try:
+            user = User.objects.get(pk=pk, role="student")
+            # Toggle status
+            user.is_active = not user.is_active
+            user.save()
+            
+            return Response({
+                "message": f"User {'activated' if user.is_active else 'deactivated'} successfully",
+                "is_active": user.is_active
+            })
+        except User.DoesNotExist:
+            return Response(
+                {"error": "User not found"},
+                status=404
+            )
+
+
+class AdminUpdateUserView(generics.UpdateAPIView):
+    """
+    Admin endpoint untuk update user profile
+    Akses: /api/talents/admin/users/<id>/
+    """
+    serializer_class = AdminTalentSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    queryset = User.objects.filter(role="student")
+    
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        
+        # Update user data
+        if 'email' in request.data:
+            instance.email = request.data['email']
+        if 'nim' in request.data:
+            instance.nim = request.data['nim']
+            
+        # Update profile data if exists
+        if hasattr(instance, 'profile'):
+            profile = instance.profile
+            if 'program_studi' in request.data:
+                profile.prodi = request.data['program_studi']
+                profile.save()
+        
+        instance.save()
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+    
+class HomePageStatsView(APIView):
+    permission_classes = [permissions.AllowAny]
+    
+    def get(self, request):
+        # Total mahasiswa (hanya user dengan role "student")
+        total_student = User.objects.filter(role="student").count()
+
+        # Total unique skills
+        total_skills = Skill.objects.values("skill_name").distinct().count()
+
+        # Total program studi (jumlah prodi unik)
+        total_prodi = (
+            TalentProfile.objects
+            .exclude(prodi__isnull=True)
+            .exclude(prodi__exact="")
+            .values("prodi")
+            .distinct()
+            .count()
+        )
+
+        # Kunci-kunci disesuaikan dengan frontend types
+        data = {
+            "total_student": total_student,
+            "total_skills": total_skills,
+            "total_prodi": total_prodi,
+        }
+
+        # Serialisasi output
+        serializer = HomePageStatsSerializer(data)
         return Response(serializer.data)

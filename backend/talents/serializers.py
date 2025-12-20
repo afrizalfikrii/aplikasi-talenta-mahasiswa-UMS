@@ -66,3 +66,43 @@ class AdminDashboardStatsSerializer(serializers.Serializer):
     total_skills = serializers.IntegerField()
     top_prodi = serializers.DictField()
     avg_experience = serializers.FloatField()
+
+class AdminTalentSerializer(serializers.ModelSerializer):
+    program_studi = serializers.SerializerMethodField()
+    skills = serializers.SerializerMethodField()
+    name = serializers.SerializerMethodField()
+
+    class Meta:
+        model = User
+        fields = [
+            "id",
+            "nim",
+            "name",
+            "email",
+            "program_studi",
+            "is_active",
+            "skills",
+        ]
+
+    def get_program_studi(self, obj):
+        """
+        Safely get program studi from profile
+        """
+        return obj.profile.prodi if hasattr(obj, 'profile') and obj.profile else ""
+
+    def get_skills(self, obj):
+        """
+        Return list of skill names only
+        """
+        return list(obj.skills.values_list("skill_name", flat=True))
+
+    def get_name(self, obj):
+        """
+        Centralized name resolver
+        """
+        return getattr(obj, "full_name", obj.username)
+    
+class HomePageStatsSerializer(serializers.Serializer):
+    total_student = serializers.IntegerField()
+    total_skills = serializers.IntegerField()
+    total_prodi = serializers.IntegerField()
