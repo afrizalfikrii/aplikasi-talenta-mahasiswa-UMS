@@ -1,7 +1,7 @@
 const CallToAction = () => {
   return (
-    <div className="w-full bg-white shadow-md rounded-2xl p-8 border border-gray-200 flex flex-col items-center">
-      <h2 className="text-lg font-medium text-gray-800 mb-6">
+    <div className="w-full bg-white dark:bg-slate-900 shadow-md rounded-2xl p-8 border border-gray-200 dark:border-slate-800 flex flex-col items-center transition-colors">
+      <h2 className="text-lg font-medium text-gray-800 dark:text-white mb-6 transition-colors">
         Tertarik dengan talenta ini?
       </h2>
 
