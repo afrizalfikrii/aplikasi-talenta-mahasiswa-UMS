@@ -1,9 +1,33 @@
 import { Link } from "react-router-dom";
+import { useProfile } from "../hooks/useProfile";
 
 export default function HeroSection() {
+  const { profile, loading } = useProfile();
+
+  if (loading) {
+    return (
+      <div className="bg-slate-800 rounded-2xl p-8 mb-8 text-white shadow-lg">
+        <h1 className="text-3xl font-bold mb-2">Loading...</h1>
+        <p className="text-slate-200 mb-8 text-lg">Memuat data profil...</p>
+      </div>
+    );
+  }
+
+  if (!profile) {
+    return (
+      <div className="bg-slate-800 rounded-2xl p-8 mb-8 text-white shadow-lg">
+        <h1 className="text-3xl font-bold mb-2">Error</h1>
+        <p className="text-slate-200 mb-8 text-lg">Gagal memuat profil</p>
+      </div>
+    );
+  }
+
+  const fullName = `${profile.user.first_name || ''} ${profile.user.last_name || ''}`.trim();
+  const userName = fullName || profile.user.username || (profile as any).username || "User";
+  const userSlug = profile.user.username || (profile as any).username;
+
   return (
     <div className="bg-slate-800 rounded-2xl p-8 mb-8 text-white shadow-lg relative overflow-hidden">
-      {/* Background decoration */}
       <div className="absolute top-0 right-0 p-8 opacity-10">
         <svg
           width="200"
@@ -18,10 +42,10 @@ export default function HeroSection() {
 
       <div className="relative z-10">
         <h1 className="text-3xl font-bold mb-2">
-            <p>nama user ndek kene yo</p>
+            {loading ? "Loading..." : userName}
         </h1>
         <p className="text-slate-200 mb-8 text-lg">
-            <p>kelola profile disini, bisa ke cv dan preview</p>
+            Kelola profil Anda, download CV, dan preview profil publik
         </p>
 
         <div className="flex flex-wrap gap-4">
@@ -39,11 +63,11 @@ export default function HeroSection() {
                 d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
               />
             </svg>
-            <span>Download CV</span>  {/* download cv */}
+            <span>Download CV</span>
           </button>
 
           <Link
-            to="/talenta/(nama-user)" // slug link
+            to={`/talenta/${userSlug}`}
             className="flex items-center space-x-2 bg-slate-700 text-white px-6 py-2.5 rounded-lg font-semibold hover:bg-slate-600 transition-colors border border-slate-600"
           >
             <svg
