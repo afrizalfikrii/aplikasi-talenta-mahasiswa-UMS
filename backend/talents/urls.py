@@ -13,6 +13,7 @@ from .views import (
     AdminTalentListView,
     AdminToggleUserStatusView,
     AdminUpdateUserView,
+    HomePageStatsView,
 )
 
 # Setup Router untuk ViewSets
@@ -37,6 +38,8 @@ urlpatterns = [
     # 3. Router URLs untuk CRUD (Skills, Experiences, Portfolios)
     # Akses: /api/talents/me/skills/, /api/talents/me/experiences/, /api/talents/me/portfolios/
     path('', include(router.urls)),
+
+    path('stats/', HomePageStatsView.as_view(), name='talent-stats'),
 
     # 4. URL untuk download CV (Public)
     # Akses: /api/talents/<username>/download-cv/

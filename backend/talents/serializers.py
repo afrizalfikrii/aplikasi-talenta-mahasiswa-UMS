@@ -101,3 +101,8 @@ class AdminTalentSerializer(serializers.ModelSerializer):
         Centralized name resolver
         """
         return getattr(obj, "full_name", obj.username)
+    
+class HomePageStatsSerializer(serializers.Serializer):
+    total_student = serializers.IntegerField()
+    total_skills = serializers.IntegerField()
+    total_prodi = serializers.IntegerField()

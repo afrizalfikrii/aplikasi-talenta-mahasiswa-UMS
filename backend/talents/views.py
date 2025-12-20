@@ -9,7 +9,7 @@ from rest_framework import filters
 from django_filters import rest_framework as django_filters
 from authentication.permission import IsAdminUser
 from .models import TalentProfile, Skill, Experience, Portfolio
-from .serializers import TalentProfileSerializer, SkillSerializer, ExperienceSerializer, PortfolioSerializer, AdminDashboardStatsSerializer, AdminTalentSerializer
+from .serializers import TalentProfileSerializer, SkillSerializer, ExperienceSerializer, PortfolioSerializer, AdminDashboardStatsSerializer, AdminTalentSerializer, HomePageStatsSerializer
 
 User = get_user_model()
 
@@ -298,4 +298,35 @@ class AdminUpdateUserView(generics.UpdateAPIView):
         
         instance.save()
         serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+    
+class HomePageStatsView(APIView):
+    permission_classes = [permissions.AllowAny]
+    
+    def get(self, request):
+        # Total mahasiswa (hanya user dengan role "student")
+        total_student = User.objects.filter(role="student").count()
+
+        # Total unique skills
+        total_skills = Skill.objects.values("skill_name").distinct().count()
+
+        # Total program studi (jumlah prodi unik)
+        total_prodi = (
+            TalentProfile.objects
+            .exclude(prodi__isnull=True)
+            .exclude(prodi__exact="")
+            .values("prodi")
+            .distinct()
+            .count()
+        )
+
+        # Kunci-kunci disesuaikan dengan frontend types
+        data = {
+            "total_student": total_student,
+            "total_skills": total_skills,
+            "total_prodi": total_prodi,
+        }
+
+        # Serialisasi output
+        serializer = HomePageStatsSerializer(data)
         return Response(serializer.data)

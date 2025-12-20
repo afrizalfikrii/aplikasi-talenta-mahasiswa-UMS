@@ -2,7 +2,7 @@ import DaftarTalentaHead from "./TableHeadTalenta";
 import TableBodyTalenta from "./TableBodyTalenta";
 import { useAdminTalents } from "../hooks/useAdminTalents";
 import { useMemo } from "react";
-import type { AdminTalent, FilterStatus } from "../types/talent-admin.types";
+import type { FilterStatus } from "../types/talent-admin.types";
 
 interface DaftarTalentaProps {
   onStatsUpdate?: () => void;
