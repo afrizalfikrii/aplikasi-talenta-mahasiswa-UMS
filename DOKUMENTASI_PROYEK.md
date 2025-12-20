@@ -996,6 +996,7 @@ MyTalenta berhasil diimplementasikan dengan arsitektur modern yang scalable dan 
 
 **Dibuat oleh:** Tim Solusi Kode  
 **Tanggal:** 20 Desember 2025  
-**Video Demo:** [Gdrive]()  
+**Video Demo:** [Gdrive](https://drive.google.com/drive/folders/1z-kGzH4ZAXjaJT1OSFElkXkP0NW6QwpR)  
 **Live Demo:** [MyTalenta Frontend](https://personalprojectmytalenta.vercel.app)
+
 **Live Demo:** [MyTalenta Backend](https://personalprojectmytalenta-production.up.railway.app/admin)
