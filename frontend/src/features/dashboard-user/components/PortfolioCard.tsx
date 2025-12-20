@@ -35,7 +35,7 @@ export default function PortfolioCard() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        
+
         if (!formData.project_title.trim()) {
             alert("Judul proyek tidak boleh kosong!");
             return;
@@ -43,13 +43,13 @@ export default function PortfolioCard() {
 
         try {
             setSubmitting(true);
-            
+
             if (editingPortfolioId) {
                 await editPortfolio(editingPortfolioId, formData);
             } else {
                 await addPortfolio(formData);
             }
-            
+
             setShowModal(false);
             setFormData({
                 project_title: "",
@@ -77,9 +77,9 @@ export default function PortfolioCard() {
 
     if (loading) {
         return (
-            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
+            <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8">
                 <div className="flex justify-center items-center h-32">
-                    <p className="text-slate-500">Loading portfolio...</p>
+                    <p className="text-slate-500 dark:text-slate-400">Loading portfolio...</p>
                 </div>
             </div>
         );
@@ -87,9 +87,9 @@ export default function PortfolioCard() {
 
     if (error) {
         return (
-            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
+            <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8">
                 <div className="flex justify-center items-center h-32">
-                    <p className="text-red-500">{error}</p>
+                    <p className="text-red-500 dark:text-red-400">{error}</p>
                 </div>
             </div>
         );
@@ -97,10 +97,10 @@ export default function PortfolioCard() {
 
     return (
         <>
-            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
+            <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8">
                 <div className="flex justify-between items-center mb-6">
-                    <h2 className="text-xl font-bold text-slate-800">Portfolio</h2>
-                    <button 
+                    <h2 className="text-xl font-bold text-slate-800 dark:text-white">Portfolio</h2>
+                    <button
                         onClick={handleAddPortfolio}
                         className="flex items-center space-x-2 bg-slate-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-slate-700 transition-colors"
                     >
@@ -114,9 +114,9 @@ export default function PortfolioCard() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {portfolios.length > 0 ? (
                         portfolios.map((portfolio) => (
-                            <div key={portfolio.id} className="border border-slate-200 rounded-lg p-4 hover:border-slate-300 transition-colors">
+                            <div key={portfolio.id} className="border border-slate-200 dark:border-slate-700 rounded-lg p-4 hover:border-slate-300 dark:hover:border-slate-600 transition-colors">
                                 <div className="flex justify-between items-start mb-2">
-                                    <h3 className="font-semibold text-slate-900">{portfolio.project_title}</h3>
+                                    <h3 className="font-semibold text-slate-900 dark:text-white">{portfolio.project_title}</h3>
                                     <div className="flex gap-2">
                                         <button
                                             onClick={() => handleEditPortfolio(portfolio)}
@@ -133,12 +133,12 @@ export default function PortfolioCard() {
                                     </div>
                                 </div>
                                 {portfolio.description && (
-                                    <p className="text-sm text-slate-600 mb-2">{portfolio.description}</p>
+                                    <p className="text-sm text-slate-600 dark:text-slate-400 mb-2">{portfolio.description}</p>
                                 )}
                                 {portfolio.project_url && (
-                                    <a 
-                                        href={portfolio.project_url} 
-                                        target="_blank" 
+                                    <a
+                                        href={portfolio.project_url}
+                                        target="_blank"
                                         rel="noopener noreferrer"
                                         className="text-sm text-blue-500 hover:text-blue-700 flex items-center gap-1"
                                     >
@@ -151,7 +151,7 @@ export default function PortfolioCard() {
                             </div>
                         ))
                     ) : (
-                        <div className="col-span-2 text-center py-8 text-slate-400">
+                        <div className="col-span-2 text-center py-8 text-slate-400 dark:text-slate-500">
                             Belum ada portfolio yang ditambahkan. Klik "Tambah Portfolio" untuk menambahkan.
                         </div>
                     )}
@@ -164,7 +164,7 @@ export default function PortfolioCard() {
                         <h3 className="text-xl font-bold text-slate-800 mb-4">
                             {editingPortfolioId ? "Edit Portfolio" : "Tambah Portfolio Baru"}
                         </h3>
-                        
+
                         <form onSubmit={handleSubmit} className="space-y-4">
                             <div>
                                 <label className="block text-sm font-medium text-slate-700 mb-2">

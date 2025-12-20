@@ -29,7 +29,7 @@ export default function SkillsCard() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        
+
         if (!formData.skill_name.trim()) {
             alert("Nama skill tidak boleh kosong!");
             return;
@@ -37,13 +37,13 @@ export default function SkillsCard() {
 
         try {
             setSubmitting(true);
-            
+
             if (editingSkillId) {
                 await editSkill(editingSkillId, formData);
             } else {
                 await addSkill(formData);
             }
-            
+
             setShowModal(false);
             setFormData({ skill_name: "", proficiency_level: "beginner" });
         } catch (err: any) {
@@ -67,9 +67,9 @@ export default function SkillsCard() {
 
     if (loading) {
         return (
-            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
+            <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8">
                 <div className="flex justify-center items-center h-32">
-                    <p className="text-slate-500">Loading skills...</p>
+                    <p className="text-slate-500 dark:text-slate-400">Loading skills...</p>
                 </div>
             </div>
         );
@@ -77,9 +77,9 @@ export default function SkillsCard() {
 
     if (error) {
         return (
-            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
+            <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8">
                 <div className="flex justify-center items-center h-32">
-                    <p className="text-red-500">{error}</p>
+                    <p className="text-red-500 dark:text-red-400">{error}</p>
                 </div>
             </div>
         );
@@ -87,10 +87,10 @@ export default function SkillsCard() {
 
     return (
         <>
-            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
+            <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8">
                 <div className="flex justify-between items-center mb-8">
-                    <h2 className="text-xl font-bold text-slate-800">Skills</h2>
-                    <button 
+                    <h2 className="text-xl font-bold text-slate-800 dark:text-white">Skills</h2>
+                    <button
                         onClick={handleAddSkill}
                         className="flex items-center space-x-2 bg-slate-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-slate-700 transition-colors"
                     >
@@ -107,7 +107,7 @@ export default function SkillsCard() {
                             {skills.map((skill) => (
                                 <div key={skill.id} className="space-y-2 relative group">
                                     <div className="flex justify-between items-start">
-                                        <label className="text-sm font-medium text-slate-500">
+                                        <label className="text-sm font-medium text-slate-500 dark:text-slate-400">
                                             {skill.skill_name}
                                         </label>
                                         <div className="flex gap-2">
@@ -125,14 +125,14 @@ export default function SkillsCard() {
                                             </button>
                                         </div>
                                     </div>
-                                    <div className="w-full p-3 bg-slate-50 border border-slate-200 rounded-lg text-slate-900 capitalize">
+                                    <div className="w-full p-3 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg text-slate-900 dark:text-slate-100 capitalize">
                                         {skill.proficiency_level}
                                     </div>
                                 </div>
                             ))}
                         </div>
                     ) : (
-                        <div className="text-center py-8 text-slate-400">
+                        <div className="text-center py-8 text-slate-400 dark:text-slate-500">
                             Belum ada skill yang ditambahkan. Klik "Tambah Skill" untuk menambahkan.
                         </div>
                     )}
@@ -145,7 +145,7 @@ export default function SkillsCard() {
                         <h3 className="text-xl font-bold text-slate-800 mb-4">
                             {editingSkillId ? "Edit Skill" : "Tambah Skill Baru"}
                         </h3>
-                        
+
                         <form onSubmit={handleSubmit} className="space-y-4">
                             <div>
                                 <label className="block text-sm font-medium text-slate-700 mb-2">
