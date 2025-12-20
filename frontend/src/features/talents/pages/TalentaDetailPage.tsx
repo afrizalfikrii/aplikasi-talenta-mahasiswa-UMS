@@ -26,12 +26,12 @@ const TalentaDetailPage: React.FC = () => {
   }
 
   return (
-    <div className="w-full min-h-screen bg-gray-50 py-7 px-8 flex flex-col items-center">
-      <div className="w-full bg-gray-50 max-w-xl sm:max-w-2xl md:max-w-3xl lg:max-w-6xl xl:max-w-6xl">
+    <div className="w-full min-h-screen bg-gray-50 dark:bg-slate-950 py-7 px-8 flex flex-col items-center transition-colors duration-300">
+      <div className="w-full bg-gray-50 dark:bg-slate-950 max-w-xl sm:max-w-2xl md:max-w-3xl lg:max-w-6xl xl:max-w-6xl transition-colors duration-300">
         <div className="flex justify-start mb-6">
           <Link
             to="/talenta"
-            className="text-gray-600 hover:text-blue-800 font-medium flex items-center gap-2"
+            className="text-gray-600 dark:text-gray-400 hover:text-blue-800 dark:hover:text-blue-400 font-medium flex items-center gap-2 transition-colors"
           >
             <span className="text-4xl leading-none flex items-center">🡐</span>
             <span className="flex items-center">Kembali ke Talenta</span>
