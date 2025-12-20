@@ -1,33 +1,29 @@
-import {useEffect, useState, useCallback} from "react";
-import {getAdminDashboardStats} from "../api/admin.stats.api";
-import type {AdminDashboardStats} from "../types/stats.types";
+import { useEffect, useState, useCallback } from "react";
+import { getAdminDashboardStats } from "../api/admin.stats.api";
+import type { AdminDashboardStats } from "../types/stats.types";
 
 export const useDashboardStats = () => {
-  const [data, setData] = useState<AdminDashboardStats | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+    const [data, setData] = useState<AdminDashboardStats | null>(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
-  const loadStats = useCallback(() => {
-    setLoading(true);
-    setError(null);
-    getAdminDashboardStats()
-        .then(setData)
-        .catch((err) => {
-            console.error("Error fetching dashboard stats:", err);
-            console.error("Error response:", err.response);
-            if (err.response?.status === 403) {
-                setError("Akses ditolak. Anda tidak memiliki izin untuk melihat statistik ini.");
-            } else if (err.response?.status === 401) {
-                setError("Anda harus masuk untuk melihat statistik ini.");
-            } else {
-                setError(err.response?.data?.message || err.message ||"Gagal mengambil data statistik dashboard.");
-            }
-        })
-        .finally(() => setLoading(false));
-  }, []);
+    useEffect(() => {
+        // MOCK DATA FOR UI TESTING
+        const mockData = {
+            total_student: 156,
+            active_profiles: 142,
+            inactive_profiles: 14,
+            total_skills: 28,
+            top_prodi: {
+                name: "Informatika",
+                total: 45
+            },
+            avg_experience: 1.2
+        };
 
-  useEffect(() => {
-    loadStats();
-    }, [loadStats]);
-    return { data, loading, error, refetch: loadStats };
-  };
+        setData(mockData);
+        setLoading(false);
+    }, []);
+
+    return { data, loading, error, refetch: () => { } };
+};

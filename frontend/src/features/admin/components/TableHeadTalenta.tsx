@@ -3,7 +3,7 @@
 const TableHeadTalenta = () => {
   return (
     
-    <thead className="border-b text-gray-600">
+    <thead className="border-b dark:border-slate-700 text-gray-600 dark:text-gray-400">
       <tr>
         <th className="py-3 text-left">NIM</th>
         <th className="py-3 text-left">Nama</th>

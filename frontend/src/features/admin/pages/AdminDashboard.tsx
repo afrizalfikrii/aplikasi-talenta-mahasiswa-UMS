@@ -43,7 +43,7 @@ export default function AdminDashboard() {
   }
 
   return (
-    <main className="min-h-screen bg-white-100">
+    <main className="min-h-screen bg-white-100 dark:bg-slate-950 transition-colors duration-300">
       {/* Content */}
       <section className="p-8 gap-6 flex flex-col">
         <BentoGridDashboard stats={data} />

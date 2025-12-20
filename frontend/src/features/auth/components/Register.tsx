@@ -178,7 +178,7 @@ export default function Register() {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                placeholder="budi@student.ums.ac.id"
+                placeholder="adesetiawan@student.ums.ac.id"
                 required
                 className={`text-black px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all ${errors.email ? 'border-red-500' : 'border-slate-300'
                   }`}
