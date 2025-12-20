@@ -1,5 +1,5 @@
 import DaftarTalentaHead from "./TableHeadTalenta";
-import DaftarTalentaBody from "./TableBobyTalenta";
+import DaftarTalentaBody from "./TableRowTalenta";
 
 const DaftarTalenta = () => {
   return (

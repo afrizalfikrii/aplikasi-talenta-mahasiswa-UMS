@@ -1,6 +1,6 @@
 import { Eye, EyeOff, Pencil } from "lucide-react";
 
-const TableBodyTalenta = () => {
+const TableRowTalenta = () => {
   return (
     <tbody>
       <tr className="border-b-sm hover:bg-gray-50">
@@ -45,4 +45,4 @@ const TableBodyTalenta = () => {
   );
 };
 
-export default TableBodyTalenta;
+export default TableRowTalenta;
