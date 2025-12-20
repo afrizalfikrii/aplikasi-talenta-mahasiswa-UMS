@@ -174,7 +174,7 @@ export default function PortfolioCard() {
                                     type="text"
                                     value={formData.project_title}
                                     onChange={(e) => setFormData({ ...formData, project_title: e.target.value })}
-                                    className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-slate-900"
                                     placeholder="Contoh: Website E-Commerce"
                                     required
                                 />
@@ -187,7 +187,7 @@ export default function PortfolioCard() {
                                 <textarea
                                     value={formData.description}
                                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                                    className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-slate-900"
                                     rows={4}
                                     placeholder="Jelaskan tentang proyek ini..."
                                     required
@@ -202,7 +202,7 @@ export default function PortfolioCard() {
                                     type="url"
                                     value={formData.project_url}
                                     onChange={(e) => setFormData({ ...formData, project_url: e.target.value })}
-                                    className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-slate-900"
                                     placeholder="https://github.com/username/project"
                                 />
                             </div>
@@ -218,7 +218,7 @@ export default function PortfolioCard() {
                                 </button>
                                 <button
                                     type="submit"
-                                    className="flex-1 px-4 py-2 bg-slate-600 text-white rounded-lg hover:bg-slate-700 transition-colors disabled:opacity-50"
+                                    className="flex-1 px-4 py-2 bg-slate-600 text-white rounded-lg hover:bg-slate-700 transition-colors disabled:opacity-50 text-slate-900"
                                     disabled={submitting}
                                 >
                                     {submitting ? "Menyimpan..." : "Simpan"}

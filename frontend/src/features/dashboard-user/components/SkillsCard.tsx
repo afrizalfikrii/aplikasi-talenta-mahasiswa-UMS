@@ -155,7 +155,7 @@ export default function SkillsCard() {
                                     type="text"
                                     value={formData.skill_name}
                                     onChange={(e) => setFormData({ ...formData, skill_name: e.target.value })}
-                                    className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-slate-900"
                                     placeholder="Contoh: React.js, Python, etc."
                                     required
                                 />
@@ -168,7 +168,7 @@ export default function SkillsCard() {
                                 <select
                                     value={formData.proficiency_level}
                                     onChange={(e) => setFormData({ ...formData, proficiency_level: e.target.value as any })}
-                                    className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-slate-900"
                                 >
                                     <option value="beginner">Beginner</option>
                                     <option value="intermediate">Intermediate</option>
@@ -188,7 +188,7 @@ export default function SkillsCard() {
                                 </button>
                                 <button
                                     type="submit"
-                                    className="flex-1 px-4 py-2 bg-slate-600 text-white rounded-lg hover:bg-slate-700 transition-colors disabled:opacity-50"
+                                    className="flex-1 px-4 py-2 bg-slate-600 text-white rounded-lg hover:bg-slate-700 transition-colors disabled:opacity-50 text-slate-900"
                                     disabled={submitting}
                                 >
                                     {submitting ? "Menyimpan..." : "Simpan"}
