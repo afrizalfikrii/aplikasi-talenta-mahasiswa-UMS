@@ -37,6 +37,26 @@ export const getMyProfile = async (): Promise<TalentProfile> => {
 }
 
 export const updateMyProfile = async (payload: ProfileUpdatePayload): Promise<TalentProfile> => {
-  const res = await http.put('/talents/me/', payload)
+  const res = await http.patch('/talents/me/', payload)
+  return res.data
+}
+
+export const uploadProfilePicture = async (file: File): Promise<TalentProfile> => {
+  const formData = new FormData()
+  formData.append('profile_picture', file)
+  
+  const res = await http.patch('/talents/me/', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' }
+  })
+  return res.data
+}
+
+export const uploadCV = async (file: File): Promise<TalentProfile> => {
+  const formData = new FormData()
+  formData.append('cv_file', file)
+  
+  const res = await http.patch('/talents/me/', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' }
+  })
   return res.data
 }
