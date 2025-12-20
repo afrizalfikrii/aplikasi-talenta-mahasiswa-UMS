@@ -24,7 +24,14 @@ export default function Login() {
       setUser(userData)
 
       console.log("Login berhasil")
-      navigate("/") // redirect setelah login
+      // Redirect berdasarkan role
+      if (userData.role === "admin") {
+        navigate("/admin/dashboard")
+      } else if (userData.role === "student") {
+        navigate("/")
+      } else {
+        navigate("/")
+      }
     } catch (err) {
       alert("Login gagal")
     } finally {

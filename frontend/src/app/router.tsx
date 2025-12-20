@@ -8,6 +8,7 @@ import HomePage from "@/pages/HomePage"
 import LoginPage from "@/features/auth/pages/LoginPage"
 import RegisterPage from "@/features/auth/pages/RegisterPage"
 import NotFoundPage from "@/pages/NotFoundPage"
+import ForbiddenPage from "@/pages/ForbiddenPage"
 
 // Talent
 import TalentaPage from "@/features/talents/pages/TalentaPage"
@@ -32,22 +33,27 @@ export const router = createBrowserRouter([
         path: "talenta",
         element: <TalentaPage />, // PUBLIC
       },
-      // mencoba tampilan admin dashboard
       {
-        path: "admin/dashboard",
-        element: <AdminDashboard />,
+        path: "talenta/:username",
+        element: <TalentDetailPage />,
       },
+      // 🔒 PROTECTED ADMIN ROUTES
       {
-        path: "user/dashboard",
-        element: <UserDashboard />,
-      },
-      // 🔒 PROTECTED TALENT DETAIL
-      {
-        element: <ProtectedRoute />,
+        element: <ProtectedRoute role="admin" />,
         children: [
           {
-            path: "talenta/:username",
-            element: <TalentDetailPage />,
+            path: "admin/dashboard",
+            element: <AdminDashboard />,
+          },
+        ],
+      },
+      // 🔒 PROTECTED STUDENT ROUTES
+      {
+        element: <ProtectedRoute role="student" />,
+        children: [
+          {
+            path: "user/dashboard",
+            element: <UserDashboard />,
           },
         ],
       },
@@ -62,6 +68,12 @@ export const router = createBrowserRouter([
   {
     path: "/auth/register",
     element: <RegisterPage />,
+  },
+
+  // FORBIDDEN
+  {
+    path: "/403",
+    element: <ForbiddenPage />,
   },
 
   // FALLBACK

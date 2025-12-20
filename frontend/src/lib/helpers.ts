@@ -33,3 +33,25 @@ export const formatDateRange = (
   if (!endDate) return `${start} - Sekarang`;
   return `${start} - ${formatDate(endDate)}`;
 };
+
+export const useCounterAnimation = (
+  endValue: number,
+  isVisible: boolean,
+  onCountChange: (count: number) => void
+) => {
+  if (!isVisible) return;
+
+  let currentCount = 0;
+  const increment = Math.ceil(endValue / 100);
+  const interval = setInterval(() => {
+    currentCount += increment;
+    if (currentCount >= endValue) {
+      onCountChange(endValue);
+      clearInterval(interval);
+    } else {
+      onCountChange(currentCount);
+    }
+  }, 50);
+
+  return () => clearInterval(interval);
+};
