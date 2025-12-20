@@ -6,10 +6,6 @@ from .serializers import RegisterSerializer
 
 
 class RegisterView(generics.CreateAPIView):
-    """
-    API endpoint untuk registrasi user baru (mahasiswa)
-    POST /api/auth/register/
-    """
     serializer_class = RegisterSerializer
     permission_classes = [AllowAny]
 
