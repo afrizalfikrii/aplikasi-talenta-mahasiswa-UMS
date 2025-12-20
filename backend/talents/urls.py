@@ -10,6 +10,7 @@ from .views import (
     ExperienceViewSet,
     PortfolioViewSet,
     AdminDashboardStatsView,
+    AdminTalentListView,
 )
 
 # Setup Router untuk ViewSets
@@ -44,5 +45,7 @@ urlpatterns = [
     path('<str:user__username>/', PublicTalentDetailView.as_view(), name='talent-detail'),
 
     # === ADMIN DASHBOARD STATS VIEW ===
+    path('admin/talents/', AdminTalentListView.as_view(), name='admin-talent-list'),
+
     path('admin/dashboard-stats/', AdminDashboardStatsView.as_view(), name='admin-dashboard-stats'),
 ]

@@ -9,7 +9,7 @@ from rest_framework import filters
 from django_filters import rest_framework as django_filters
 from authentication.permission import IsAdminUser
 from .models import TalentProfile, Skill, Experience, Portfolio
-from .serializers import TalentProfileSerializer, SkillSerializer, ExperienceSerializer, PortfolioSerializer, AdminDashboardStatsSerializer
+from .serializers import TalentProfileSerializer, SkillSerializer, ExperienceSerializer, PortfolioSerializer, AdminDashboardStatsSerializer, AdminTalentSerializer
 
 User = get_user_model()
 
@@ -176,6 +176,23 @@ class PortfolioViewSet(viewsets.ModelViewSet):
     
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+class AdminTalentListView(generics.ListAPIView):
+    """
+    Admin endpoint untuk melihat daftar semua mahasiswa/talent
+    Akses: /api/admin/talents/
+    """
+    serializer_class = AdminTalentSerializer
+    permission_classes = [IsAdminUser]
+
+    def get_queryset(self):
+        return (
+            User.objects
+            .filter(role="student")
+            .select_related("profile")
+            .prefetch_related("skills")
+            .order_by('-id')
+        )
 
 class AdminDashboardStatsView(APIView):
     """
