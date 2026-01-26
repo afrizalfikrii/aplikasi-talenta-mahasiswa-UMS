@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { Download, Eye } from "lucide-react";
 import { useProfile } from "../hooks/useProfile";
 
 export default function HeroSection() {
@@ -6,18 +7,22 @@ export default function HeroSection() {
 
   if (loading) {
     return (
-      <div className="bg-slate-800 rounded-2xl p-8 mb-8 text-white shadow-lg">
-        <h1 className="text-3xl font-bold mb-2">Loading...</h1>
-        <p className="text-slate-200 mb-8 text-lg">Memuat data profil...</p>
+      <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-3xl p-8 mb-8 text-white shadow-lg mx-4 sm:mx-6 lg:mx-8 mt-8 animate-pulse">
+        <div className="h-8 bg-white/20 rounded w-1/3 mb-4"></div>
+        <div className="h-4 bg-white/20 rounded w-2/3 mb-8"></div>
+        <div className="flex gap-4">
+          <div className="h-12 bg-white/20 rounded-xl w-40"></div>
+          <div className="h-12 bg-white/20 rounded-xl w-48"></div>
+        </div>
       </div>
     );
   }
 
   if (!profile) {
     return (
-      <div className="bg-slate-800 rounded-2xl p-8 mb-8 text-white shadow-lg">
+      <div className="bg-gradient-to-r from-red-600 to-pink-600 rounded-3xl p-8 mb-8 text-white shadow-lg mx-4 sm:mx-6 lg:mx-8 mt-8">
         <h1 className="text-3xl font-bold mb-2">Error</h1>
-        <p className="text-slate-200 mb-8 text-lg">Gagal memuat profil</p>
+        <p className="text-white/90 mb-8 text-lg">Gagal memuat profil</p>
       </div>
     );
   }
@@ -27,77 +32,39 @@ export default function HeroSection() {
   const userSlug = profile.user.username || (profile as any).username;
 
   return (
-    <div className="bg-slate-800 rounded-2xl p-8 mb-8 text-white shadow-lg relative overflow-hidden">
-      <div className="absolute top-0 right-0 p-8 opacity-10">
-        <svg
-          width="200"
-          height="200"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-          className="text-white transform rotate-12"
-        >
-          <path d="M12 2L2 7l10 5 10-5-10-5zm0 9l2.5-1.25L12 8.5l-2.5 1.25L12 11zm0 2.5l-5-2.5-5 2.5L12 22l10-8.5-5-2.5-5 2.5z" />
-        </svg>
-      </div>
+    <div className="relative bg-gradient-to-r from-blue-600 to-indigo-600 rounded-3xl p-8 mb-8 text-white shadow-xl mx-4 sm:mx-6 lg:mx-8 mt-8 overflow-hidden">
+      {/* Decorative Background */}
+      <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+      <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2"></div>
 
       <div className="relative z-10">
-        <h1 className="text-3xl font-bold mb-2">
-            {loading ? "Loading..." : userName}
+        <h1 className="text-3xl md:text-4xl font-bold mb-2">
+          {loading ? "Loading..." : userName}
         </h1>
-        <p className="text-slate-200 mb-8 text-lg">
-            Kelola profil Anda, download CV, dan preview profil publik
+        <p className="text-white/90 mb-8 text-lg max-w-2xl">
+          Kelola profil Anda, download CV, dan preview profil publik
         </p>
 
         <div className="flex flex-wrap gap-4">
           <button 
             onClick={() => profile.cv_file && window.open(profile.cv_file, '_blank')}
             disabled={!profile.cv_file}
-            className={`flex items-center space-x-2 px-6 py-2.5 rounded-lg font-semibold transition-colors ${
+            className={`flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all ${
               profile.cv_file 
-                ? 'bg-white text-slate-900 hover:bg-slate-100 cursor-pointer' 
-                : 'bg-slate-600 text-slate-400 cursor-not-allowed opacity-60'
+                ? 'bg-white text-blue-600 hover:bg-white/90 hover:scale-105 cursor-pointer shadow-lg' 
+                : 'bg-white/20 text-white/60 cursor-not-allowed'
             }`}
             title={!profile.cv_file ? 'CV belum diupload' : 'Download CV'}
           >
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-              />
-            </svg>
+            <Download size={20} />
             <span>Download CV</span>
           </button>
 
           <Link
             to={`/talenta/${userSlug}`}
-            className="flex items-center space-x-2 bg-slate-700 text-white px-6 py-2.5 rounded-lg font-semibold hover:bg-slate-600 transition-colors border border-slate-600"
+            className="flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white px-6 py-3 rounded-xl font-semibold hover:bg-white/20 transition-all border border-white/20 hover:scale-105 shadow-lg"
           >
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-              />
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-              />
-            </svg>
+            <Eye size={20} />
             <span>Preview Profil Publik</span>
           </Link>
         </div>

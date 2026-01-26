@@ -1,4 +1,5 @@
 import type { Talent } from '../types/talent.types';
+import { MapPin, ArrowRight, CheckCircle } from 'lucide-react';
 
 const truncateBio = (text: string, maxWords: number = 15) => {
   const words = text.trim().split(/\s+/);
@@ -8,51 +9,68 @@ const truncateBio = (text: string, maxWords: number = 15) => {
 
 const StudentCard = ({student}: {student: Talent}) => {
   return (
-    <div className="w-full h-full max-w-xl bg-white dark:bg-slate-800 rounded-2xl shadow-md p-6 border border-gray-100 dark:border-slate-700 hover:shadow-lg transition-shadow duration-300">
-      {/* Avatar + Name */}
-      <div className="flex items-center gap-4">
-        {/* Avatar */}
-        <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-900 flex items-center justify-center text-3xl font-semibold">
+    <div className="group relative bg-white dark:bg-gray-800 rounded-3xl p-6 border border-gray-100 dark:border-gray-700 hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] dark:hover:shadow-[0_8px_30px_rgb(0,0,0,0.3)] transition-all duration-500 cursor-pointer hover:-translate-y-1">
+      <div className="flex items-start justify-between mb-6">
+        <div className="relative">
           {student.profile_picture ? (
             <img
               src={student.profile_picture}
               alt={`${student.username} profile`}
-              className="w-full h-full object-cover rounded-full"
+              className="w-16 h-16 rounded-2xl object-cover"
             />
           ) : (
-            student.username.charAt(0)
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-2xl font-bold">
+              {student.username.charAt(0).toUpperCase()}
+            </div>
           )}
+          {/* Verified Badge - placeholder for future implementation */}
+          <CheckCircle 
+            className="absolute -bottom-2 -right-2 text-blue-500 bg-white dark:bg-gray-800 rounded-full" 
+            size={20} 
+            fill="white"
+          />
         </div>
-
-        <div className="text-left">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">{student.username}</h2>
-          <p className="text-gray-600 dark:text-gray-400 text-sm">{student.prodi}</p>
-          <p className="text-gray-500 dark:text-gray-500 text-sm">NIM: {student.user?.nim}</p>
+        <div className="bg-gray-50 dark:bg-gray-700/50 px-3 py-1 rounded-full text-xs font-medium text-gray-600 dark:text-gray-300">
+          {student.user?.nim || 'N/A'}
         </div>
       </div>
-
+      
+      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+        {student.username}
+      </h3>
+      <p className="text-gray-500 dark:text-gray-400 text-sm mb-4">{student.prodi}</p>
+      
       {/* Bio */}
-      <p className="mt-4 text-gray-700 dark:text-gray-300 text-left text-sm leading-relaxed">
-        {student.summary ? truncateBio(student.summary) : "Belum ada summary"}
-      </p>
-
+      {student.summary && (
+        <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 leading-relaxed">
+          {truncateBio(student.summary, 12)}
+        </p>
+      )}
+      
       {/* Skills */}
-      <div className="mt-4 flex flex-wrap gap-2">
-        {student.skills?.slice(0, 4).map((skill) => (
-          <span
-            key={skill.id}
-            className="px-3 py-1 bg-emerald-100 text-emerald-900 text-sm rounded-full flex items-center justify-center"
+      <div className="flex flex-wrap gap-2 mb-6">
+        {student.skills?.slice(0, 3).map(s => (
+          <span 
+            key={s.id} 
+            className="px-3 py-1 bg-gray-50 dark:bg-gray-700 rounded-lg text-xs font-medium text-gray-600 dark:text-gray-300"
           >
-            {skill.skill_name}
+            {s.skill_name}
           </span>
         ))}
-
-        {/* Badge More */}
-        {student.skills && student.skills.length > 4 && (
-          <span className="px-3 py-1 bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-gray-300 text-sm rounded-full">
-            +{student.skills.length - 4}
+        {student.skills && student.skills.length > 3 && (
+          <span className="px-3 py-1 bg-gray-50 dark:bg-gray-700 rounded-lg text-xs font-medium text-gray-600 dark:text-gray-300">
+            +{student.skills.length - 3}
           </span>
         )}
+      </div>
+
+      <div className="flex items-center justify-between pt-4 border-t border-gray-50 dark:border-gray-700">
+        <span className="text-xs text-gray-400 dark:text-gray-500 flex items-center gap-1">
+          <MapPin size={12}/> Surakarta
+        </span>
+        <span className="text-blue-600 dark:text-blue-400 text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
+          Lihat <ArrowRight size={14} />
+        </span>
       </div>
     </div>
   );

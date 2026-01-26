@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { UserPlus, User, Mail, Lock, Eye, EyeOff, Hash, IdCard } from 'lucide-react';
 import { registerApi, loginApi, getMeApi } from '../api/auth.api';
 import { useAuthStore } from '../store/auth.store';
 import type { RegisterPayload } from '../types/auth.types';
@@ -9,6 +10,7 @@ export default function Register() {
   const navigate = useNavigate();
   const doLogin = useAuthStore((s) => s.login);
   const setUser = useAuthStore((s) => s.setUser);
+  
   const [formData, setFormData] = useState<RegisterPayload>({
     username: '',
     email: '',
@@ -18,9 +20,11 @@ export default function Register() {
     first_name: '',
     last_name: '',
   });
+  
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isLoading, setIsLoading] = useState(false);
-  const [successMessage, setSuccessMessage] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword2, setShowPassword2] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -34,7 +38,6 @@ export default function Register() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setErrors({});
-    setSuccessMessage('');
     setIsLoading(true);
 
     try {
@@ -51,7 +54,7 @@ export default function Register() {
       const me = await getMeApi();
       setUser(me);
 
-      // Go to home (or dashboard if needed)
+      // Go to home
       navigate('/');
     } catch (error: any) {
       if (error.response?.data) {
@@ -66,184 +69,271 @@ export default function Register() {
   };
 
   return (
-    <div className="flex items-center justify-center from-slate-50 to-slate-200 px-4 mt-16 mb-16">
-      <div className="w-full max-w-md">
-        <div className="bg-white rounded-lg shadow-lg p-8">
-          <div className='justify-center mb-6 flex'>
-            <img src="/logo-desktop.svg" alt="logo-talenta" className="h-10 w-auto" />
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 px-4 py-12 transition-colors">
+      <div className="w-full max-w-2xl">
+        {/* Card */}
+        <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl p-8 border border-gray-100 dark:border-gray-700 transition-all">
+          {/* Logo */}
+          <div className="flex justify-center mb-8">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg">
+                <UserPlus className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Daftar</h1>
+                <p className="text-sm text-gray-500 dark:text-gray-400">Buat akun baru Anda</p>
+              </div>
+            </div>
           </div>
 
-          {successMessage && (
-            <div className="mb-4 p-3 bg-green-100 border border-green-400 text-green-700 rounded-lg">
-              {successMessage}
-            </div>
-          )}
-
+          {/* General Error */}
           {errors.general && (
-            <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg">
-              {errors.general}
+            <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-700 rounded-xl">
+              <p className="text-sm text-red-700 dark:text-red-300 text-center">{errors.general}</p>
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="grid grid-cols-2 gap-3">
-              <div className="flex flex-col">
-                <label htmlFor="first_name" className="text-sm font-medium text-slate-700 mb-2 text-left">
+          {/* Form */}
+          <form onSubmit={handleSubmit} className="space-y-5">
+            {/* Name Fields */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="first_name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Nama Depan
                 </label>
-                <input
-                  type="text"
-                  id="first_name"
-                  name="first_name"
-                  value={formData.first_name}
-                  onChange={handleChange}
-                  placeholder="Setiawan"
-                  required
-                  className={`text-black px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all ${errors.first_name ? 'border-red-500' : 'border-slate-300'
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <User className="h-5 w-5 text-gray-400" />
+                  </div>
+                  <input
+                    type="text"
+                    id="first_name"
+                    name="first_name"
+                    value={formData.first_name}
+                    onChange={handleChange}
+                    placeholder="Setiawan"
+                    required
+                    className={`w-full pl-10 pr-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all ${
+                      errors.first_name ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
                     }`}
-                />
+                  />
+                </div>
                 {errors.first_name && (
-                  <span className="text-xs text-red-500 mt-1">{errors.first_name}</span>
+                  <p className="text-xs text-red-500 dark:text-red-400 mt-1">{errors.first_name}</p>
                 )}
               </div>
-              <div className="flex flex-col">
-                <label htmlFor="last_name" className="text-sm font-medium text-slate-700 mb-2 text-left">
+
+              <div>
+                <label htmlFor="last_name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Nama Belakang
                 </label>
-                <input
-                  type="text"
-                  id="last_name"
-                  name="last_name"
-                  value={formData.last_name}
-                  onChange={handleChange}
-                  placeholder="Ade"
-                  required
-                  className={`text-black px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all ${errors.last_name ? 'border-red-500' : 'border-slate-300'
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <User className="h-5 w-5 text-gray-400" />
+                  </div>
+                  <input
+                    type="text"
+                    id="last_name"
+                    name="last_name"
+                    value={formData.last_name}
+                    onChange={handleChange}
+                    placeholder="Ade"
+                    required
+                    className={`w-full pl-10 pr-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all ${
+                      errors.last_name ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
                     }`}
-                />
+                  />
+                </div>
                 {errors.last_name && (
-                  <span className="text-xs text-red-500 mt-1">{errors.last_name}</span>
+                  <p className="text-xs text-red-500 dark:text-red-400 mt-1">{errors.last_name}</p>
                 )}
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
-              <div className="flex flex-col">
-                <label htmlFor="nim" className="text-sm font-medium text-slate-700 mb-2 text-left">
+            {/* NIM & Username */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="nim" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   NIM
                 </label>
-                <input
-                  type="text"
-                  id="nim"
-                  name="nim"
-                  value={formData.nim}
-                  onChange={handleChange}
-                  placeholder="L2002300001"
-                  required
-                  className={`text-black px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all ${errors.nim ? 'border-red-500' : 'border-slate-300'
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <IdCard className="h-5 w-5 text-gray-400" />
+                  </div>
+                  <input
+                    type="text"
+                    id="nim"
+                    name="nim"
+                    value={formData.nim}
+                    onChange={handleChange}
+                    placeholder="L200230001"
+                    required
+                    className={`w-full pl-10 pr-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all ${
+                      errors.nim ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
                     }`}
-                />
+                  />
+                </div>
                 {errors.nim && (
-                  <span className="text-xs text-red-500 mt-1">{errors.nim}</span>
+                  <p className="text-xs text-red-500 dark:text-red-400 mt-1">{errors.nim}</p>
                 )}
               </div>
-              <div className="flex flex-col">
-                <label htmlFor="username" className="text-sm font-medium text-slate-700 mb-2 text-left">
+
+              <div>
+                <label htmlFor="username" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Username
                 </label>
-                <input
-                  type="text"
-                  id="username"
-                  name="username"
-                  value={formData.username}
-                  onChange={handleChange}
-                  placeholder="adesetiawan"
-                  required
-                  className={`text-black px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all ${errors.username ? 'border-red-500' : 'border-slate-300'
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Hash className="h-5 w-5 text-gray-400" />
+                  </div>
+                  <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    value={formData.username}
+                    onChange={handleChange}
+                    placeholder="adesetiawan"
+                    required
+                    className={`w-full pl-10 pr-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all ${
+                      errors.username ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
                     }`}
-                />
+                  />
+                </div>
                 {errors.username && (
-                  <span className="text-xs text-red-500 mt-1">{errors.username}</span>
+                  <p className="text-xs text-red-500 dark:text-red-400 mt-1">{errors.username}</p>
                 )}
               </div>
             </div>
 
-            <div className="flex flex-col">
-              <label htmlFor="email" className="text-sm font-medium text-slate-700 mb-2 text-left">
+            {/* Email */}
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Email
               </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="adesetiawan@student.ums.ac.id"
-                required
-                className={`text-black px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all ${errors.email ? 'border-red-500' : 'border-slate-300'
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <Mail className="h-5 w-5 text-gray-400" />
+                </div>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="adesetiawan@student.ums.ac.id"
+                  required
+                  className={`w-full pl-10 pr-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all ${
+                    errors.email ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
                   }`}
-              />
+                />
+              </div>
               {errors.email && (
-                <span className="text-xs text-red-500 mt-1">{errors.email}</span>
+                <p className="text-xs text-red-500 dark:text-red-400 mt-1">{errors.email}</p>
               )}
             </div>
 
-            <div className="flex flex-col">
-              <label htmlFor="password" className="text-sm font-medium text-slate-700 mb-2 text-left">
-                Password
-              </label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                placeholder="Masukkan password"
-                required
-                className={`text-black px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all ${errors.password ? 'border-red-500' : 'border-slate-300'
-                  }`}
-              />
-              {errors.password && (
-                <span className="text-xs text-red-500 mt-1">{errors.password}</span>
-              )}
+            {/* Password Fields */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Password
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Lock className="h-5 w-5 text-gray-400" />
+                  </div>
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    id="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    placeholder="Masukkan password"
+                    required
+                    className={`w-full pl-10 pr-12 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all ${
+                      errors.password ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
+                    }`}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+                  >
+                    {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                  </button>
+                </div>
+                {errors.password && (
+                  <p className="text-xs text-red-500 dark:text-red-400 mt-1">{errors.password}</p>
+                )}
+              </div>
+
+              <div>
+                <label htmlFor="password2" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Konfirmasi Password
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Lock className="h-5 w-5 text-gray-400" />
+                  </div>
+                  <input
+                    type={showPassword2 ? "text" : "password"}
+                    id="password2"
+                    name="password2"
+                    value={formData.password2}
+                    onChange={handleChange}
+                    placeholder="Ulangi password"
+                    required
+                    className={`w-full pl-10 pr-12 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all ${
+                      errors.password2 ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
+                    }`}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword2(!showPassword2)}
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+                  >
+                    {showPassword2 ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                  </button>
+                </div>
+                {errors.password2 && (
+                  <p className="text-xs text-red-500 dark:text-red-400 mt-1">{errors.password2}</p>
+                )}
+              </div>
             </div>
 
-            <div className="flex flex-col">
-              <label htmlFor="password2" className="text-sm font-medium text-slate-700 mb-2 text-left">
-                Konfirmasi Password
-              </label>
-              <input
-                type="password"
-                id="password2"
-                name="password2"
-                value={formData.password2}
-                onChange={handleChange}
-                placeholder="Ulangi password"
-                required
-                className={`text-black px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all ${errors.password2 ? 'border-red-500' : 'border-slate-300'
-                  }`}
-              />
-              {errors.password2 && (
-                <span className="text-xs text-red-500 mt-1">{errors.password2}</span>
-              )}
-            </div>
-
+            {/* Submit Button */}
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-slate-700 text-white py-2 rounded-lg hover:bg-slate-800 transition-colors font-semibold shadow-md hover:shadow-lg mt-4 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all font-semibold shadow-lg shadow-blue-500/30 hover:shadow-xl hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 mt-6"
             >
-              {isLoading ? 'Mendaftar...' : 'Daftar'}
+              {isLoading ? (
+                <span className="flex items-center justify-center gap-2">
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  Mendaftar...
+                </span>
+              ) : (
+                <span className="flex items-center justify-center gap-2">
+                  <UserPlus size={20} />
+                  Daftar
+                </span>
+              )}
             </button>
           </form>
 
-          <p className="text-center text-sm text-slate-600 mt-4">
+          {/* Login Link */}
+          <p className="text-center text-sm text-gray-600 dark:text-gray-400 mt-6">
             Sudah punya akun?{' '}
-            <Link to="/auth/login" className="text-slate-800 font-medium hover:underline">
+            <Link to="/auth/login" className="font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors">
               Masuk di sini
             </Link>
           </p>
         </div>
+
+        {/* Footer Text */}
+        <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-6">
+          © 2024 Talenta UMS. All rights reserved.
+        </p>
       </div>
     </div>
   );
