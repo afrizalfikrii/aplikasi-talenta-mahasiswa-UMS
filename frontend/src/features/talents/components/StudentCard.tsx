@@ -35,9 +35,15 @@ const StudentCard = ({student}: {student: Talent}) => {
         </div>
       </div>
       
+      
       <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-        {student.username}
+        {student.user?.first_name && student.user?.last_name 
+          ? `${student.user.first_name} ${student.user.last_name}`
+          : student.username}
       </h3>
+      {student.user?.first_name && student.user?.last_name && (
+        <p className="text-gray-500 dark:text-gray-400 text-xs mb-1">@{student.username}</p>
+      )}
       <p className="text-gray-500 dark:text-gray-400 text-sm mb-4">{student.prodi}</p>
       
       {/* Bio */}

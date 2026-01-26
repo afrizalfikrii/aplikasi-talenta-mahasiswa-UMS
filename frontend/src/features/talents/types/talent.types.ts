@@ -22,6 +22,8 @@ export interface Talent {
   skills?: Skill[]
   user?: {
     nim?: string
+    first_name?: string
+    last_name?: string
   }
 }
 
