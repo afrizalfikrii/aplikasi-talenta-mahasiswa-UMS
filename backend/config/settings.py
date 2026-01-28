@@ -148,9 +148,13 @@ CORS_ALLOWED_ORIGINS = [
     "https://talentaums.vercel.app",
 ]
 
+# Trust HTTPS from proxy/load balancer
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 CSRF_TRUSTED_ORIGINS = [
     "https://talentaums.vercel.app",
     "https://web-production-8d071.up.railway.app",
+    "http://web-production-8d071.up.railway.app",  # Fallback just in case
 ]
 
 CORS_ALLOW_CREDENTIALS = True
