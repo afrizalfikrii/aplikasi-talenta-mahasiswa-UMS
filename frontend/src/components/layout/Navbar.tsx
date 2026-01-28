@@ -1,6 +1,7 @@
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
-import { LogOut, LayoutDashboard, Sparkles } from "lucide-react";
+import { LogOut, LayoutDashboard } from "lucide-react";
+import logoTalentaUMS from "@/assets/images/logo-talenta-ums.jpg";
 import { useAuthStore } from "@/features/auth/store/auth.store";
 import { getMeApi } from "@/features/auth/api/auth.api";
 import { ModeToggle } from "@/components/mode-toggle";
@@ -64,16 +65,17 @@ export default function Navbar() {
           ? 'w-[90%] max-w-5xl h-16 rounded-full glass-panel shadow-xl border border-white/20 dark:border-gray-700/20 px-6' 
           : 'w-full max-w-7xl h-20 bg-white dark:bg-gray-900 px-4 sm:px-6 md:px-8'}
       `}>
-        {/* Logo with Gradient */}
+        {/* Logo with Image */}
         <Link 
           to="/"
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="flex items-center gap-2 cursor-pointer group"
+          className="flex items-center gap-3 cursor-pointer group"
         >
-          <div className="relative w-10 h-10 bg-gradient-to-br from-blue-500 via-indigo-500 to-purple-600 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-lg group-hover:scale-110 transition-transform duration-300">
-            <Sparkles className="w-5 h-5" />
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-400 to-purple-500 rounded-xl blur opacity-50 group-hover:opacity-75 transition-opacity"></div>
-          </div>
+          <img 
+            src={logoTalentaUMS}
+            alt="Talenta UMS Logo" 
+            className="w-12 h-12 rounded-full object-cover shadow-lg group-hover:scale-110 transition-transform duration-300 ring-2 ring-blue-500/20"
+          />
           <span className="font-bold text-lg tracking-tight text-gray-900 dark:text-white">
             Talenta<span className="bg-gradient-to-r from-blue-500 to-indigo-600 bg-clip-text text-transparent">UMS</span>
           </span>

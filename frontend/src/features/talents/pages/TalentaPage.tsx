@@ -57,7 +57,7 @@ const TalentaPage = () => {
 
   return (
     <>
-      <div className="w-full min-h-screen pt-32 pb-20 px-6 transition-colors duration-300 animate-fade-up">
+      <div className="w-full min-h-screen pt-8 pb-20 px-6 transition-colors duration-300 animate-fade-up">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-4">
