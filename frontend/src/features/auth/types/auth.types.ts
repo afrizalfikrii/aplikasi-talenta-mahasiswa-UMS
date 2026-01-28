@@ -13,6 +13,8 @@ export interface User {
   username: string
   email: string
   role: "admin" | "student"
+  first_name?: string
+  last_name?: string
 }
 
 export interface RegisterPayload {

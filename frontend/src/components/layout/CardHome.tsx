@@ -65,8 +65,11 @@ export default function CardHome() {
             </div>
             
             <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-              {talenta.username}
+              {talenta.user?.first_name && talenta.user?.last_name 
+                ? `${talenta.user.first_name} ${talenta.user.last_name}` 
+                : talenta.username}
             </h3>
+            <p className="text-gray-400 dark:text-gray-500 text-xs mb-2">@{talenta.username}</p>
             <p className="text-gray-500 dark:text-gray-400 text-sm mb-4">{talenta.prodi}</p>
             
             {/* Skills */}

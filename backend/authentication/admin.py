@@ -5,7 +5,7 @@ from .models import User
 
 class CustomUserAdmin(UserAdmin):
     model = User
-    list_display = ('username', 'email', 'role', 'nim')
+    list_display = ('username', 'first_name', 'last_name', 'email', 'role', 'nim')
 
     fieldsets = UserAdmin.fieldsets + (
         ('Extra Fields', {'fields': ('role', 'nim')}),

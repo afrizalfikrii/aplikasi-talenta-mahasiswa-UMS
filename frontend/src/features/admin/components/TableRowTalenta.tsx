@@ -43,22 +43,45 @@ const TableRowTalenta = ({ talents, onUpdate }: TableRowTalentaProps) => {
 
   return (
     <>
-      <tr className="border-b-sm border-gray-100 dark:border-slate-800 hover:bg-gray-50 dark:hover:bg-slate-800 transition-colors">
-        <td className="py-4 w-32 whitespace-nowrap dark:text-gray-300">{talents.nim}</td>
-        <td className="py-4 w-64">
+      <tr className="border-b border-gray-100 dark:border-gray-800 hover:bg-blue-50/50 dark:hover:bg-blue-900/10 transition-all duration-200">
+        {/* NIM */}
+        <td className="py-4 px-6">
+          <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
+            {talents.nim}
+          </span>
+        </td>
+
+        {/* Nama with Avatar */}
+        <td className="py-4 px-6">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-full bg-red-100 dark:bg-red-900/30 text-red-500 dark:text-red-400 flex items-center justify-center font-semibold">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 text-white flex items-center justify-center font-bold text-sm shadow-md flex-shrink-0">
               {talents.name.charAt(0).toUpperCase()}
             </div>
-            <span className="font-medium dark:text-gray-200">{talents.name}</span>
+            <span className="text-sm font-semibold text-gray-900 dark:text-gray-100 truncate">
+              {talents.name}
+            </span>
           </div>
         </td>
-        <td className="py-4 w-44 whitespace-nowrap dark:text-gray-300">{talents.program_studi}</td>
-        <td className="py-4 w-72 text-gray-600 dark:text-gray-400">{talents.email}</td>
-        <td className="py-4 w-64">
-          <div className="flex flex-wrap gap-2">
+
+        {/* Program Studi */}
+        <td className="py-4 px-6">
+          <span className="text-sm text-gray-700 dark:text-gray-300">
+            {talents.program_studi}
+          </span>
+        </td>
+
+        {/* Email */}
+        <td className="py-4 px-6">
+          <span className="text-sm text-gray-600 dark:text-gray-400 truncate block">
+            {talents.email}
+          </span>
+        </td>
+
+        {/* Skills */}
+        <td className="py-4 px-6">
+          <div className="flex flex-wrap gap-1.5">
             {talents.skills.length === 0 ? (
-              <span className="px-2 py-1 text-xs rounded bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-gray-400">
+              <span className="px-2.5 py-1 text-xs rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 font-medium">
                 Belum ada skill
               </span>
             ) : (
@@ -66,13 +89,13 @@ const TableRowTalenta = ({ talents, onUpdate }: TableRowTalentaProps) => {
                 {talents.skills.slice(0, 2).map((skill, index) => (
                   <span
                     key={index}
-                    className="px-2 py-1 text-xs rounded bg-red-50 dark:bg-red-900/20 text-red-500 dark:text-red-400"
+                    className="px-2.5 py-1 text-xs rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 font-medium whitespace-nowrap"
                   >
                     {skill}
                   </span>
                 ))}
                 {talents.skills.length > 2 && (
-                  <span className="px-2 py-1 text-xs rounded bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-gray-400">
+                  <span className="px-2.5 py-1 text-xs rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 font-medium">
                     +{talents.skills.length - 2}
                   </span>
                 )}
@@ -80,43 +103,53 @@ const TableRowTalenta = ({ talents, onUpdate }: TableRowTalentaProps) => {
             )}
           </div>
         </td>
-        <td className="py-4 w-28">
-          {talents.is_active ? (
-            <span className="px-3 py-1 text-xs rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 font-medium">
-              Aktif
-            </span>
-          ) : (
-            <span className="px-3 py-1 text-xs rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 font-medium">
-              Nonaktif
-            </span>
-          )}
+
+        {/* Status */}
+        <td className="py-4 px-6">
+          <div className="flex justify-center">
+            {talents.is_active ? (
+              <span className="inline-flex items-center px-3 py-1.5 text-xs rounded-full bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 font-semibold">
+                Aktif
+              </span>
+            ) : (
+              <span className="inline-flex items-center px-3 py-1.5 text-xs rounded-full bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 font-semibold">
+                Nonaktif
+              </span>
+            )}
+          </div>
         </td>
-        <td className="py-4 w-24">
-          <div className="flex justify-center gap-3">
+
+        {/* Actions */}
+        <td className="py-4 px-6">
+          <div className="flex justify-center items-center gap-2">
             {talents.is_active ? (
               <button
                 onClick={handleToggleStatus}
                 disabled={isUpdating}
-                className="disabled:opacity-50"
+                className="p-2 rounded-lg bg-red-50 dark:bg-red-900/20 hover:bg-red-100 dark:hover:bg-red-900/30 
+                       transition-all duration-200 disabled:opacity-50 group"
                 title="Nonaktifkan akun"
               >
-                <EyeOff className="w-4 h-4 text-red-500 dark:text-red-400 cursor-pointer hover:text-red-700 dark:hover:text-red-300" />
+                <EyeOff className="w-4 h-4 text-red-600 dark:text-red-400 group-hover:scale-110 transition-transform" />
               </button>
             ) : (
               <button
                 onClick={handleToggleStatus}
                 disabled={isUpdating}
-                className="disabled:opacity-50"
+                className="p-2 rounded-lg bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/30 
+                       transition-all duration-200 disabled:opacity-50 group"
                 title="Aktifkan akun"
               >
-                <Eye className="w-4 h-4 text-blue-500 dark:text-blue-400 cursor-pointer hover:text-blue-700 dark:hover:text-blue-300" />
+                <Eye className="w-4 h-4 text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform" />
               </button>
             )}
             <button
               onClick={handleEdit}
+              className="p-2 rounded-lg bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 
+                     transition-all duration-200 group"
               title="Edit profil"
             >
-              <Pencil className="w-4 h-4 text-gray-600 dark:text-gray-400 cursor-pointer hover:text-gray-800 dark:hover:text-gray-200" />
+              <Pencil className="w-4 h-4 text-gray-600 dark:text-gray-400 group-hover:scale-110 transition-transform" />
             </button>
           </div>
         </td>

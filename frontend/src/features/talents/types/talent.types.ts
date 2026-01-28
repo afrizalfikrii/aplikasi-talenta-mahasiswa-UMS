@@ -33,6 +33,7 @@ export interface TalentDetail extends Talent {
   linkedin_url?: string
   github_url?: string
   website_url?: string
+  cv_file?: string | null
   experiences?: Experience[]
   user?: {
     nim?: string

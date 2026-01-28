@@ -73,63 +73,122 @@ const TalentaPage = () => {
 
           {/* Search and Filters */}
           <div className="w-full flex flex-col gap-4 mb-8">
-            {/* Search Input */}
-            <div className="relative max-w-2xl">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+            {/* Search Input - Glass Morphism */}
+            <div className="relative w-full">
+              <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500" size={22} />
               <input
                 type="text"
-                placeholder="Cari berdasarkan nama..."
+                placeholder="Cari talenta berdasarkan nama..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full pl-12 pr-5 py-4 border rounded-2xl shadow-sm focus:ring-2 focus:ring-blue-300 outline-none
-                       bg-white dark:bg-gray-800 dark:text-white dark:border-gray-700 placeholder-gray-400 dark:placeholder-gray-500 transition-all"
+                className="w-full pl-16 pr-6 py-5 rounded-3xl shadow-lg glass-panel
+                       border border-gray-200/50 dark:border-gray-700/50
+                       focus:ring-2 focus:ring-blue-400/50 dark:focus:ring-blue-500/50 
+                       focus:border-transparent outline-none
+                       text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500
+                       transition-all duration-300 hover:shadow-xl"
               />
             </div>
 
-            {/* Filter Dropdowns */}
-            <div className="flex flex-col sm:flex-row items-stretch gap-3">
-              <div className="relative flex-1">
-                <Filter className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" size={18} />
-                <select
-                  value={selectedProdi}
-                  onChange={(e) => setSelectedProdi(e.target.value)}
-                  className="w-full pl-12 pr-5 py-3 border rounded-xl shadow-sm focus:ring-2 focus:ring-blue-300 outline-none
-                         bg-white dark:bg-gray-800 dark:text-white dark:border-gray-700 appearance-none cursor-pointer"
-                >
-                  <option value="">Semua Program Studi</option>
+            {/* Filter Pills Section */}
+            <div className="flex flex-col gap-4">
+              {/* Program Studi Filter */}
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center gap-2">
+                  <Filter size={16} className="text-gray-500 dark:text-gray-400" />
+                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Program Studi:</span>
+                  {selectedProdi && (
+                    <button
+                      onClick={() => setSelectedProdi("")}
+                      className="text-xs text-blue-600 dark:text-blue-400 hover:underline"
+                    >
+                      Reset
+                    </button>
+                  )}
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  <button
+                    onClick={() => setSelectedProdi("")}
+                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                      selectedProdi === ""
+                        ? "bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/30"
+                        : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+                    }`}
+                  >
+                    Semua
+                  </button>
                   {prodiOptions.map((prodi) => (
-                    <option key={prodi} value={prodi}>
+                    <button
+                      key={prodi}
+                      onClick={() => setSelectedProdi(prodi)}
+                      className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                        selectedProdi === prodi
+                          ? "bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/30"
+                          : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+                      }`}
+                    >
                       {prodi}
-                    </option>
+                    </button>
                   ))}
-                </select>
+                </div>
               </div>
 
-              <div className="relative flex-1">
-                <Filter className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" size={18} />
-                <select
-                  value={selectedSkill}
-                  onChange={(e) => setSelectedSkill(e.target.value)}
-                  className="w-full pl-12 pr-5 py-3 border rounded-xl shadow-sm focus:ring-2 focus:ring-blue-300 outline-none
-                         bg-white dark:bg-gray-800 dark:text-white dark:border-gray-700 appearance-none cursor-pointer"
-                >
-                  <option value="">Semua Skill</option>
-                  {skillOptions.map((skill) => (
-                    <option key={skill} value={skill}>
+              {/* Skills Filter */}
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center gap-2">
+                  <Filter size={16} className="text-gray-500 dark:text-gray-400" />
+                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Skills:</span>
+                  {selectedSkill && (
+                    <button
+                      onClick={() => setSelectedSkill("")}
+                      className="text-xs text-blue-600 dark:text-blue-400 hover:underline"
+                    >
+                      Reset
+                    </button>
+                  )}
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  <button
+                    onClick={() => setSelectedSkill("")}
+                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                      selectedSkill === ""
+                        ? "bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/30"
+                        : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+                    }`}
+                  >
+                    Semua
+                  </button>
+                  {skillOptions.slice(0, 10).map((skill) => (
+                    <button
+                      key={skill}
+                      onClick={() => setSelectedSkill(skill)}
+                      className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                        selectedSkill === skill
+                          ? "bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/30"
+                          : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+                      }`}
+                    >
                       {skill}
-                    </option>
+                    </button>
                   ))}
-                </select>
+                  {skillOptions.length > 10 && (
+                    <span className="px-4 py-2 text-sm text-gray-500 dark:text-gray-400">
+                      +{skillOptions.length - 10} lainnya
+                    </span>
+                  )}
+                </div>
               </div>
 
-              {/* Clear Filters Button */}
+              {/* Clear All Filters */}
               {hasActiveFilters && (
                 <button
                   onClick={clearFilters}
-                  className="px-6 py-3 border rounded-xl shadow-sm hover:bg-red-50 dark:hover:bg-red-900/20 transition
-                         bg-white dark:bg-gray-800 dark:text-white dark:border-gray-700 text-red-600 dark:text-red-400 font-medium"
+                  className="self-start px-5 py-2 rounded-full text-sm font-medium 
+                         bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 
+                         hover:bg-red-100 dark:hover:bg-red-900/30 transition-all duration-300
+                         border border-red-200 dark:border-red-800"
                 >
-                  Clear Filters
+                  Reset Semua Filter
                 </button>
               )}
             </div>

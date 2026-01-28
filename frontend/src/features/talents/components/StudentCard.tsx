@@ -8,6 +8,13 @@ const truncateBio = (text: string, maxWords: number = 15) => {
 };
 
 const StudentCard = ({student}: {student: Talent}) => {
+  // Build display name
+  const displayName = student.user?.first_name || student.user?.last_name
+    ? `${student.user?.first_name || ''} ${student.user?.last_name || ''}`.trim()
+    : student.username;
+  
+  const hasRealName = !!(student.user?.first_name || student.user?.last_name);
+  
   return (
     <div className="group relative bg-white dark:bg-gray-800 rounded-3xl p-6 border border-gray-100 dark:border-gray-700 hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] dark:hover:shadow-[0_8px_30px_rgb(0,0,0,0.3)] transition-all duration-500 cursor-pointer hover:-translate-y-1">
       <div className="flex items-start justify-between mb-6">
@@ -37,11 +44,9 @@ const StudentCard = ({student}: {student: Talent}) => {
       
       
       <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-        {student.user?.first_name && student.user?.last_name 
-          ? `${student.user.first_name} ${student.user.last_name}`
-          : student.username}
+        {displayName}
       </h3>
-      {student.user?.first_name && student.user?.last_name && (
+      {hasRealName && (
         <p className="text-gray-500 dark:text-gray-400 text-xs mb-1">@{student.username}</p>
       )}
       <p className="text-gray-500 dark:text-gray-400 text-sm mb-4">{student.prodi}</p>
