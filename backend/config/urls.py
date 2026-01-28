@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
+from django.http import JsonResponse
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -27,6 +28,7 @@ urlpatterns = [
     path('api/auth/', include('authentication.urls')),
 
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('', lambda request: JsonResponse({"message": "TalentaUMS API is running", "version": "1.0"})),
 ]
 
 # Agar gambar profil bisa dibuka saat development (Debug mode)
