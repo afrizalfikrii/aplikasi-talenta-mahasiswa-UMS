@@ -162,7 +162,7 @@ AUTH_USER_MODEL = 'authentication.User'
 
 # 2. CORS Config (Agar Frontend bisa akses)
 # 2. CORS Config (Agar Frontend bisa akses)
-CORS_ALLOW_ALL_ORIGINS = False  # Set False utk production dan gunakan whitelist di atas
+CORS_ALLOW_ALL_ORIGINS = True  # ✅ Force Allow All untuk debugging frontend
 
 # 3. DRF Config (Keamanan API)
 REST_FRAMEWORK = {
