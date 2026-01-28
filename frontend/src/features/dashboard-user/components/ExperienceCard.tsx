@@ -135,7 +135,7 @@ export default function ExperienceCard() {
             className="flex items-center gap-1.5 bg-blue-600 text-white px-3 py-1.5 rounded-lg text-sm font-medium hover:bg-blue-700 transition-all hover:scale-105 shadow-sm"
           >
             <Plus size={16} />
-            <span>Tambah Pengalaman</span>
+            <span className="hidden md:inline">Tambah Pengalaman</span>
           </button>
         </div>
 

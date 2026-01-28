@@ -117,7 +117,7 @@ export default function PortfolioCard() {
                         className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-xl font-medium hover:bg-blue-700 transition-all hover:scale-105 shadow-sm"
                     >
                         <Plus size={18} />
-                        <span>Tambah Portfolio</span>
+                        <span className="hidden md:inline">Tambah Portfolio</span>
                     </button>
                 </div>
 
