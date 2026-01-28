@@ -1,6 +1,14 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.http import JsonResponse
+from django.core.management import call_command
+
+def magic_migrate(request):
+    try:
+        call_command('migrate')
+        return JsonResponse({"status": "success", "message": "Database Migration Completed Successfully! ✅"})
+    except Exception as e:
+        return JsonResponse({"status": "error", "message": str(e)})
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -29,6 +37,7 @@ urlpatterns = [
 
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('', lambda request: JsonResponse({"message": "TalentaUMS API is running", "version": "1.0"})),
+    path('magic-migrate/', magic_migrate),
 ]
 
 # Agar gambar profil bisa dibuka saat development (Debug mode)
