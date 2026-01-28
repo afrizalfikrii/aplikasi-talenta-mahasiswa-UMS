@@ -4,12 +4,27 @@ from django.http import JsonResponse
 from django.core.management import call_command
 from django.views.static import serve
 
+
 def magic_migrate(request):
     try:
         call_command('migrate')
         return JsonResponse({"status": "success", "message": "Database Migration Completed Successfully! ✅"})
     except Exception as e:
         return JsonResponse({"status": "error", "message": str(e)})
+
+from django.contrib.auth import get_user_model
+
+def magic_create_superuser(request):
+    try:
+        User = get_user_model()
+        if not User.objects.filter(username='admin').exists():
+            User.objects.create_superuser('admin', 'admin@example.com', 'admin123')
+            return JsonResponse({"status": "success", "message": "Superuser 'admin' created! Password: 'admin123' 🔑"})
+        else:
+            return JsonResponse({"status": "info", "message": "Superuser 'admin' already exists. Login with 'admin123' 🔒"})
+    except Exception as e:
+        return JsonResponse({"status": "error", "message": str(e)})
+
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -41,6 +56,7 @@ urlpatterns = [
     path('magic-migrate/', magic_migrate),
     # Route khusus untuk melayani file media di Production (Railway)
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+    path('magic-create-superuser/', magic_create_superuser),
 ]
 
 # Agar gambar profil bisa dibuka saat development (Debug mode)
