@@ -150,6 +150,7 @@ CORS_ALLOWED_ORIGINS = [
 
 CSRF_TRUSTED_ORIGINS = [
     "https://talentaums.vercel.app",
+    "https://web-production-8d071.up.railway.app",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
