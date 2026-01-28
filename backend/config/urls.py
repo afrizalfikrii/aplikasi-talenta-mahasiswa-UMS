@@ -1,7 +1,8 @@
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.http import JsonResponse
 from django.core.management import call_command
+from django.views.static import serve
 
 def magic_migrate(request):
     try:
@@ -38,6 +39,8 @@ urlpatterns = [
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('', lambda request: JsonResponse({"message": "TalentaUMS API is running", "version": "1.0"})),
     path('magic-migrate/', magic_migrate),
+    # Route khusus untuk melayani file media di Production (Railway)
+    re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
 ]
 
 # Agar gambar profil bisa dibuka saat development (Debug mode)
