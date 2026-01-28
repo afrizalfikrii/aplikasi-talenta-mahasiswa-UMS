@@ -141,7 +141,13 @@ STATIC_URL = 'static/'
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
+    "https://talentaums.vercel.app",
 ]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://talentaums.vercel.app",
+]
+
 CORS_ALLOW_CREDENTIALS = True
 
 # --- KONFIGURASI TAMBAHAN ---
@@ -151,7 +157,8 @@ CORS_ALLOW_CREDENTIALS = True
 AUTH_USER_MODEL = 'authentication.User'
 
 # 2. CORS Config (Agar Frontend bisa akses)
-CORS_ALLOW_ALL_ORIGINS = True  # Nanti saat deploy ubah jadi False dan isi domain spesifik
+# 2. CORS Config (Agar Frontend bisa akses)
+CORS_ALLOW_ALL_ORIGINS = False  # Set False utk production dan gunakan whitelist di atas
 
 # 3. DRF Config (Keamanan API)
 REST_FRAMEWORK = {
