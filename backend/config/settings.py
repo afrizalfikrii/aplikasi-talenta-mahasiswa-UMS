@@ -52,9 +52,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
-    # 'corsheaders.middleware.CorsMiddleware', # Duplicate removed
     'django.middleware.security.SecurityMiddleware',
-    # 'whitenoise.middleware.WhiteNoiseMiddleware',  # ✅ Disabled temporary
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # ✅ Re-enabled
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -141,7 +140,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-# STATICFILES_STORAGE = 'whitenoise.storage.WhiteNoiseStorage' # ✅ Disabled temporary
+STATICFILES_STORAGE = 'whitenoise.storage.WhiteNoiseStorage' # ✅ Re-enabled (Safer version)
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
