@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 import os
+print("👉 DEBUG: DJANGO SETTINGS LOADED! 👈")
 from pathlib import Path
 from datetime import timedelta
 from dotenv import load_dotenv
