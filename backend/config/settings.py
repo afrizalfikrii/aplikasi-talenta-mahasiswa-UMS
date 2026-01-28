@@ -14,6 +14,7 @@ import os
 from pathlib import Path
 from datetime import timedelta
 from dotenv import load_dotenv
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -93,6 +94,12 @@ DATABASES = {
         'PORT': os.getenv('DB_PORT'),
     }
 }
+
+# Update database configuration from DATABASE_URL environment variable (if available)
+# This is used by Railway
+database_url = dj_database_url.config(conn_max_age=600)
+if database_url:
+    DATABASES['default'].update(database_url)
 
 
 # Password validation
